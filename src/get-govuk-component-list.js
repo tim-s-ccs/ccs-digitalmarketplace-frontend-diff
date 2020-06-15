@@ -1,9 +1,10 @@
 const path = require('path');
 const glob = require('glob');
+const config = require('./config');
 
-function getGovukComponentList(version, options) {
+function getGovukComponentList(version) {
   const govukComponentPath = path.join(
-    '.govuk-frontend',
+    config.tempDirectory,
     version,
     'src/govuk/components'
   );

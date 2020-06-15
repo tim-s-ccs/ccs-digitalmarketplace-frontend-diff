@@ -9,6 +9,7 @@ const yaml = require('js-yaml');
 const { HtmlDiffer } = require('@markedjs/html-differ');
 const getGovukComponentList = require('./get-govuk-component-list');
 const fetchGovukFrontend = require('./fetch-govuk-frontend');
+const config = require('./config');
 
 const htmlDiffer = new HtmlDiffer({
   ignoreAttributes: [],
@@ -39,11 +40,15 @@ async function diffComponentAgainstReferenceNunjucks(
 
   testProgress.start(components.length, 0);
 
+  const nunjucksEnv = new nunjucks.Environment([
+    new nunjucks.FileSystemLoader(path.join(config.tempDirectory, version)),
+  ]);
+
   components.forEach((component) => {
     const examples = yaml.safeLoad(
       fs.readFileSync(
         path.join(
-          '.govuk-frontend',
+          config.tempDirectory,
           version,
           'src/govuk/components',
           component,
@@ -55,15 +60,8 @@ async function diffComponentAgainstReferenceNunjucks(
 
     examples.examples.forEach((example) => {
       const expected = cleanHtml(
-        nunjucks.render(
-          path.join(
-            '.govuk-frontend',
-            version,
-            'src/govuk/components',
-            component,
-            'template.njk'
-          ),
-
+        nunjucksEnv.render(
+          path.join('src/govuk/components', component, 'template.njk'),
           {
             params: example.data,
           }

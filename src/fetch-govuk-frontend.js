@@ -4,9 +4,13 @@ const path = require('path');
 const got = require('got');
 const decompress = require('decompress');
 const mkdirp = require('mkdirp');
+const config = require('./config');
 
 async function downloadTarball(version) {
-  const tarballPath = `.govuk-frontend/govuk-frontend-${version}.tar.gz`;
+  const tarballPath = path.join(
+    config.tempDirectory,
+    `govuk-frontend-${version}.tar.gz`
+  );
 
   return new Promise(function (resolve, reject) {
     stream.pipeline(
@@ -27,7 +31,7 @@ async function downloadTarball(version) {
 
 async function fetchGovukFrontend(version, options) {
   console.log(`Fetching govuk-frontend@${version}`);
-  const govukFrontendPath = path.join('.govuk-frontend', version);
+  const govukFrontendPath = path.join(config.tempDirectory, version);
 
   if (
     !(

@@ -48,8 +48,9 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Tidy up
 // TODO: Test suite for this package
 // TODO: Documentation
+// TODO: Publish to npm
 // TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
-// TODO: Use os temp directory for storing govuk-frontend versions?
 // TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
 // TODO: Logging levels
 // TODO: Document restriction that tool only works since the components were moved to src/govuk
+// TODO: Check it works on windows - are file paths ok as they are?

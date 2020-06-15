@@ -22,24 +22,23 @@ async function performDiff(script, version, options) {
 }
 
 const { argv } = yargs
-  .usage('Usage: govukFrontendDiff ./render.sh')
-  .demandCommand(1)
-  .demandOption(['govuk-frontend-version'])
+  .usage('Usage: govukFrontendDiff ./render.sh --govuk-frontend-version=v3.7.0')
+  .option('govuk-frontend-version', {
+    describe: `Version of govuk-frontend to test against.    
+    This will normally be references to tags like v3.7.0 but this will accept any commit-ish such as branches or even commit identifiers`,
+  })
   .option('force-refresh', {
     describe:
-      'Force a re-download of govuk-frontend, bypassing the cache. Useful if the version you are specifying represents a branch',
+      'Force a re-download of govuk-frontend, bypassing the cache. Useful if the version you are specifying represents a branch such as if you were testing against master',
   })
   .command(
     '<script>',
-    'Tests the output of the provided render script against the govuk-frontend reference nunjucks',
-    (yargs) => {
-      yargs.positional('script', {
-        normalize: true,
-        describe:
-          'script to use to render custom templates. This script must accept two arguments - component and params',
-      });
-    }
-  );
+    `Tests the output of the provided render script against the govuk-frontend reference nunjucks.
+
+    This script must take --component and --params arguments, and return the html for a given component/params combo as rendered html on stdout`
+  )
+  .demandCommand(1)
+  .demandOption(['govuk-frontend-version']);
 
 performDiff(argv._[0], argv['govuk-frontend-version'], {
   forceRefresh: !!argv['force-refresh'],

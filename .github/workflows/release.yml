@@ -34,7 +34,7 @@ jobs:
         run: |
           set -x
           assets=()
-          for asset in ./bin/*.*; do
+          for asset in ./bin/*; do
             assets+=("-a" "$asset")
           done
           hub release create "${assets[@]}" -m "${{ github.ref }}" "${{ github.ref }}"

@@ -1,10 +1,11 @@
 const path = require('path');
 const glob = require('glob');
 
-function getGovukComponentList() {
+function getGovukComponentList(version, options) {
   const govukComponentPath = path.join(
-    path.dirname(require.resolve('govuk-frontend/package.json')),
-    'govuk/components'
+    '.govuk-frontend',
+    version,
+    'src/govuk/components'
   );
   return glob
     .sync(path.join(govukComponentPath, '**/macro.njk'))

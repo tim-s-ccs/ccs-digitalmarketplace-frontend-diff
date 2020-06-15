@@ -1,11 +1,14 @@
 const nunjucks = require('nunjucks');
 const ent = require('ent');
 const expect = require('expect');
+const path = require('path');
+const fs = require('fs');
 const cliProgress = require('cli-progress');
 const prettyhtml = require('@starptech/prettyhtml');
+const yaml = require('js-yaml');
 const { HtmlDiffer } = require('@markedjs/html-differ');
 const getGovukComponentList = require('./get-govuk-component-list');
-const fetchGovukExamples = require('./fetch-govuk-frontend-examples');
+const fetchGovukFrontend = require('./fetch-govuk-frontend');
 
 const htmlDiffer = new HtmlDiffer({
   ignoreAttributes: [],
@@ -25,20 +28,42 @@ function cleanHtml(dirtyHtml) {
   }).contents;
 }
 
-async function diffComponentAgainstReferenceNunjucks(renderCallback) {
-  const examples = await fetchGovukExamples();
+async function diffComponentAgainstReferenceNunjucks(
+  version,
+  renderCallback,
+  options
+) {
+  await fetchGovukFrontend(version, options);
 
-  const components = getGovukComponentList();
+  const components = getGovukComponentList(version, options);
 
   testProgress.start(components.length, 0);
 
   components.forEach((component) => {
-    examples[component].examples.forEach((example) => {
+    const examples = yaml.safeLoad(
+      fs.readFileSync(
+        path.join(
+          '.govuk-frontend',
+          version,
+          'src/govuk/components',
+          component,
+          `${component}.yaml`
+        ),
+        'utf8'
+      )
+    );
+
+    examples.examples.forEach((example) => {
       const expected = cleanHtml(
         nunjucks.render(
-          require.resolve(
-            `govuk-frontend/govuk/components/${component}/template.njk`
+          path.join(
+            '.govuk-frontend',
+            version,
+            'src/govuk/components',
+            component,
+            'template.njk'
           ),
+
           {
             params: example.data,
           }

@@ -6,7 +6,7 @@ Command line tool to compare a custom implementation of govuk-frontend templates
 
 ### Using the binaries
 
-Binaries for OSX, Linux and Windows are provided. The [latest binaries can be found here](/andymantell/govuk-frontend-diff/releases/latest).
+Binaries for OSX, Linux and Windows are provided. The [latest binaries can be found here](https://github.com/andymantell/govuk-frontend-diff/releases/latest).
 
 Using the binaries does not require NodeJS to be installed.
 

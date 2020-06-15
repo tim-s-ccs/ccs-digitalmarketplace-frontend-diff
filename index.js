@@ -22,7 +22,7 @@ async function performDiff(script, version, options) {
 }
 
 const { argv } = yargs
-  .usage('Usage: govukFrontendDiff ./render.sh --govuk-frontend-version=v3.7.0')
+  .usage('Usage: $0 ./render.sh --govuk-frontend-version=v3.7.0')
   .option('govuk-frontend-version', {
     describe: `Version of govuk-frontend to test against.    
     This will normally be references to tags like v3.7.0 but this will accept any commit-ish such as branches or even commit identifiers`,
@@ -50,6 +50,8 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Pipeline to publish package
 // TODO: Documentation
 // TODO: Investigate bundling up with https://github.com/vercel/pkg
+// TODO: Pipeline to publish binary
+// TODO: Use os temp directory for storing govuk-frontend versions?
 // TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
 // TODO: Logging levels
 // TODO: Document restriction that tool only works since the components were moved to src/govuk

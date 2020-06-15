@@ -46,11 +46,9 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 
 // TODO: Get Jest back in properly - it's become a bit horrible without it
 // TODO: Tidy up
-// TODO: Test suite for this package + Github actions
-// TODO: Pipeline to publish package
+// TODO: Test suite for this package
 // TODO: Documentation
-// TODO: Investigate bundling up with https://github.com/vercel/pkg
-// TODO: Pipeline to publish binary
+// TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
 // TODO: Use os temp directory for storing govuk-frontend versions?
 // TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
 // TODO: Logging levels

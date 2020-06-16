@@ -2,10 +2,11 @@ const nunjucks = require('nunjucks');
 const ent = require('ent');
 const path = require('path');
 const fs = require('fs');
-// const cliProgress = require('cli-progress');
+const os = require('os');
+const cliProgress = require('cli-progress');
 const prettyhtml = require('@starptech/prettyhtml');
 const yaml = require('js-yaml');
-// const assert = require('assert');
+const chalk = require('chalk');
 const { HtmlDiffer } = require('@markedjs/html-differ');
 const diffLogger = require('@markedjs/html-differ/lib/logger');
 const getGovukComponentList = require('./get-govuk-component-list');
@@ -17,12 +18,12 @@ const htmlDiffer = new HtmlDiffer({
   ignoreSelfClosingSlash: true,
 });
 
-// const testProgress = new cliProgress.SingleBar(
-//   {
-//     format: 'Running tests {bar} {percentage}% | ETA: {eta}s | {value}/{total}',
-//   },
-//   cliProgress.Presets.shades_classic
-// );
+const testProgress = new cliProgress.SingleBar(
+  {
+    format: 'Running tests {bar} {percentage}% | ETA: {eta}s | {value}/{total}',
+  },
+  cliProgress.Presets.shades_classic
+);
 
 function cleanHtml(dirtyHtml) {
   return prettyhtml(ent.decode(dirtyHtml), {
@@ -36,7 +37,6 @@ async function diffSingleComponentExample(
   renderCallback,
   nunjucksEnv
 ) {
-  console.log('Rendering', component, example.name);
   const expected = cleanHtml(
     nunjucksEnv.render(
       path.join('src/govuk/components', component, 'template.njk'),
@@ -50,16 +50,13 @@ async function diffSingleComponentExample(
 
   const isEqual = await htmlDiffer.isEqual(actual, expected);
 
-  console.log(isEqual ? '✔' : '✘');
-
   const diff = await htmlDiffer.diffHtml(actual, expected);
-  const diffText = diffLogger.getDiffText(diff);
 
   return new Promise((resolve, reject) => {
     resolve({
       passed: isEqual,
       example: example.name,
-      diff: diffText,
+      diff,
     });
   });
 }
@@ -70,6 +67,8 @@ async function diffSingleComponent(
   renderCallback,
   nunjucksEnv
 ) {
+  testProgress.increment();
+
   const examples = yaml.safeLoad(
     fs.readFileSync(
       path.join(
@@ -110,6 +109,8 @@ async function diffComponentAgainstReferenceNunjucks(
   await fetchGovukFrontend(version, options);
   const components = getGovukComponentList(version, options);
 
+  testProgress.start(components.length);
+
   const nunjucksEnv = new nunjucks.Environment([
     new nunjucks.FileSystemLoader(path.join(config.tempDirectory, version)),
   ]);
@@ -120,21 +121,52 @@ async function diffComponentAgainstReferenceNunjucks(
     )
   );
 
-  results.forEach((result) => {
-    console.log(result.component);
+  testProgress.stop();
 
-    // TODO: Output results as we go, rather than waiting til end?
+  let total = 0;
+  let totalPassed = 0;
+  let totalFailed = 0;
+
+  results.forEach((result) => {
+    const groupName = chalk.whiteBright.bold(result.component);
+    console.group(groupName);
 
     result.results.forEach((individualResult) => {
+      total += 1;
+
       console.log(
-        individualResult.passed ? '✔' : '✘',
-        individualResult.example
+        chalk.whiteBright.bold('→'),
+        individualResult.example,
+        individualResult.passed
+          ? chalk.greenBright.bold('✔')
+          : chalk.redBright.bold('✘')
       );
-      if (!individualResult.passed) {
-        console.log(individualResult.diff);
+      if (individualResult.passed) {
+        totalPassed += 1;
+      } else {
+        diffLogger.logDiffText(individualResult.diff, { charsAroundDiff: 80 });
+        console.log(os.EOL);
+        totalFailed += 1;
       }
     });
+
+    console.groupEnd(groupName);
   });
+
+  console.log(os.EOL);
+  console.group(chalk.whiteBright.bold('Results'));
+  console.log(total, ' tests.');
+  console.log(
+    chalk.greenBright(totalPassed),
+    ' passed and ',
+    chalk.redBright(totalFailed),
+    ' failed'
+  );
+  console.groupEnd('Results');
+
+  if (totalFailed > 0) {
+    process.exitCode = 1;
+  }
 }
 
 module.exports = diffComponentAgainstReferenceNunjucks;

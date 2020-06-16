@@ -44,7 +44,6 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   forceRefresh: !!argv['force-refresh'],
 });
 
-// TODO: Get Jest back in properly - it's become a bit horrible without it
 // TODO: Tidy up
 // TODO: Test suite for this package
 // TODO: Documentation
@@ -57,3 +56,4 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Review all deps - which ones can we do without in order to slim the binary down?
 // TODO: Allow people to restrict to a single component
 // TODO: Tests for the base template
+// TODO: Don't love yargs. Try something else

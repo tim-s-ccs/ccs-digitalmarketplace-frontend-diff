@@ -20,6 +20,7 @@
   "dependencies": {
     "@markedjs/html-differ": "^3.0.2",
     "@starptech/prettyhtml": "^0.10.0",
+    "chalk": "^4.1.0",
     "cli-progress": "^3.8.2",
     "decompress": "^4.2.1",
     "ent": "^2.2.0",

@@ -42,10 +42,10 @@ async function fetchGovukFrontend(version, options) {
   ) {
     if (options.forceRefresh) {
       console.log(
-        'Refresh of govuk-frontend requested, downloading from github'
+        'Refresh of govuk-frontend requested, downloading from GitHub'
       );
     } else {
-      console.log('No cached copy found, downloading from github');
+      console.log('No cached copy found, downloading from GitHub');
     }
 
     mkdirp.sync(govukFrontendPath);

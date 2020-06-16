@@ -61,18 +61,18 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   forceRefresh: !!argv['force-refresh'],
 });
 
-// TODO: Tidy up
-// TODO: Test suite for this package
-// TODO: Documentation
-// TODO: Create reference script for the render script which the tool requires
-// TODO: Publish to npm
-// TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
-// TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
-// TODO: Logging levels
-// TODO: Document restriction that tool only works since the components were moved to src/govuk
-// TODO: Check it works on windows - are file paths ok as they are?
-// TODO: Review all deps - which ones can we do without in order to slim the binary down?
 // TODO: Allow people to define which tests to run. Ignore one, run only one, run a subset, ignore a subset
-// TODO: Don't love yargs. Try something else
 // TODO: Add additional examples (Both manual and automatically generated worst case)
 // TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
+// TODO: Test suite for _this_ package - running tests against the binaries on their respective platforms as well as the raw nodejs cli
+// TODO: Check it works on windows - are file paths ok as they are?
+// TODO: Documentation
+// TODO: Create reference script for the render script which the tool requires
+// TODO: Document restriction that tool only works since the components were moved to src/govuk (Basically version 3.0.0 upwards but need to confirm this)
+// TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
+// TODO: Review all deps - which ones can we do without in order to slim the binary down?
+// TODO: Don't love yargs. Try something else
+// TODO: Logging levels? Do we want anything more verbose? Or quieter? Or just leave as is?
+// TODO: General tidy up
+// TODO: Publish to npm
+// TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package

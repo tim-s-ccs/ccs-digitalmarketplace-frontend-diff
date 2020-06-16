@@ -177,7 +177,7 @@ async function diffTemplate(version, renderCallback, nunjucksEnv) {
 
   return new Promise(function (resolve, reject) {
     resolve({
-      component: 'page template',
+      component: 'page-template',
       results,
     });
   });
@@ -189,9 +189,19 @@ async function diffComponentAgainstReferenceNunjucks(
   options
 ) {
   await fetchGovukFrontend(version, options);
-  const components = getGovukComponentList(version, options);
+  const components = getGovukComponentList(version, options).filter((item) => {
+    if (options.exclude && options.exclude.includes(item)) {
+      return false;
+    }
 
-  testProgress.start(components.length + 1); // +1 because of the additional base template tests
+    if (options.include && !options.include.includes(item)) {
+      return false;
+    }
+
+    return true;
+  });
+
+  testProgress.start(components.length);
 
   const nunjucksEnv = new nunjucks.Environment([
     new nunjucks.FileSystemLoader(__dirname),
@@ -202,7 +212,13 @@ async function diffComponentAgainstReferenceNunjucks(
     diffSingleComponent(component, version, renderCallback, nunjucksEnv)
   );
 
-  promises.push(diffTemplate(version, renderCallback, nunjucksEnv));
+  if (
+    (options.exclude && !options.exclude.includes('page-template')) ||
+    (options.include && options.include.includes('page-template'))
+  ) {
+    testProgress.setTotal(testProgress.getTotal() + 1);
+    promises.push(diffTemplate(version, renderCallback, nunjucksEnv));
+  }
 
   const results = await Promise.all(promises);
 
@@ -211,8 +227,6 @@ async function diffComponentAgainstReferenceNunjucks(
   let total = 0;
   let totalPassed = 0;
   let totalFailed = 0;
-
-  console.log(results);
 
   results.forEach((result) => {
     const groupName = chalk.whiteBright.bold(result.component);

@@ -32,6 +32,9 @@ async function performDiff(script, version, options) {
 
 const { argv } = yargs
   .usage('Usage: $0 ./render.sh --govuk-frontend-version=v3.7.0')
+  .usage(
+    'Usage: $0 ./render.sh --govuk-frontend-version=v3.7.0 --exclude=page-template'
+  )
   .option('govuk-frontend-version', {
     describe: `Version of govuk-frontend to test against.    
     This will normally be references to tags like v3.7.0 but this will accept any commit-ish such as branches or even commit identifiers`,
@@ -39,6 +42,20 @@ const { argv } = yargs
   .option('force-refresh', {
     describe:
       'Force a re-download of govuk-frontend, bypassing the cache. Useful if the version you are specifying represents a branch such as if you were testing against master',
+  })
+  .option('include', {
+    array: true,
+    conflicts: 'exclude',
+    describe: `Specify a subset of the tests to run. Should be one or more names of components, space separated
+      
+      For example --include accordion button
+      `,
+  })
+  .option('exclude', {
+    array: true,
+    conflicts: 'include',
+    describe:
+      'Specify a subset of the tests to exclude. Should be one or more names of components, space separated',
   })
   .command(
     '<script>',
@@ -59,9 +76,11 @@ const { argv } = yargs
 
 performDiff(argv._[0], argv['govuk-frontend-version'], {
   forceRefresh: !!argv['force-refresh'],
+  include: argv.include,
+  exclude: argv.exclude,
 });
 
-// TODO: Allow people to define which tests to run. Ignore one, run only one, run a subset, ignore a subset
+// TODO: Allow people to omit govuk-frontend-version in order to test against the latest tag
 // TODO: Add additional examples (Both manual and automatically generated worst case)
 // TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
 // TODO: Test suite for _this_ package - running tests against the binaries on their respective platforms as well as the raw nodejs cli

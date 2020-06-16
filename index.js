@@ -7,13 +7,22 @@ const diffComponentAgainstReferenceNunjucks = require('./src/govuk-frontend-diff
 async function performDiff(script, version, options) {
   await diffComponentAgainstReferenceNunjucks(
     version,
-    function (component, params) {
-      const output = exec(script, [
-        '--component',
-        component,
-        '--params',
-        JSON.stringify(params),
-      ]);
+    function (args) {
+      let output;
+      if (args.template) {
+        output = exec(script, [
+          '--template',
+          '--params',
+          JSON.stringify(args.params),
+        ]);
+      } else {
+        output = exec(script, [
+          '--component',
+          args.component,
+          '--params',
+          JSON.stringify(args.params),
+        ]);
+      }
 
       return output.toString('utf8');
     },
@@ -33,9 +42,17 @@ const { argv } = yargs
   })
   .command(
     '<script>',
-    `Tests the output of the provided render script against the govuk-frontend reference nunjucks.
+    `Path to a script which will render your templates for each component/template/params combination.
+    
+    The html output from this script will then be compared against the reference Nunjucks templates.
 
-    This script must take --component and --params arguments, and return the html for a given component/params combo as rendered html on stdout`
+    This script must:
+
+    take --component and --params arguments (For rendering individual components)
+      
+    take --template and --params arguments (For rendering the base template)
+      
+    return the rendered html for a given template/component/params combo on stdout`
   )
   .demandCommand(1)
   .demandOption(['govuk-frontend-version']);
@@ -47,6 +64,7 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Tidy up
 // TODO: Test suite for this package
 // TODO: Documentation
+// TODO: Create reference script for the render script which the tool requires
 // TODO: Publish to npm
 // TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
 // TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
@@ -54,6 +72,7 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Document restriction that tool only works since the components were moved to src/govuk
 // TODO: Check it works on windows - are file paths ok as they are?
 // TODO: Review all deps - which ones can we do without in order to slim the binary down?
-// TODO: Allow people to restrict to a single component
-// TODO: Tests for the base template
+// TODO: Allow people to define which tests to run. Ignore one, run only one, run a subset, ignore a subset
 // TODO: Don't love yargs. Try something else
+// TODO: Add additional examples (Both manual and automatically generated worst case)
+// TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)

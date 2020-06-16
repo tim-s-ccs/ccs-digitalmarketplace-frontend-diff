@@ -46,10 +46,9 @@ async function diffSingleComponentExample(
     )
   );
 
-  const actual = cleanHtml(renderCallback(component, example.data));
+  const actual = cleanHtml(renderCallback({ component, params: example.data }));
 
   const isEqual = await htmlDiffer.isEqual(actual, expected);
-
   const diff = await htmlDiffer.diffHtml(actual, expected);
 
   return new Promise((resolve, reject) => {
@@ -101,6 +100,89 @@ async function diffSingleComponent(
   });
 }
 
+async function diffTemplate(version, renderCallback, nunjucksEnv) {
+  testProgress.increment();
+
+  const examples = [
+    {
+      name: 'simple use case overriding the most common elements',
+      data: {
+        pageTitle: '<p>pageTitle</p>',
+        header: '<p>header</p>',
+        content: '<p>content</p>',
+        footer: '<p>footer</p>',
+      },
+    },
+    {
+      name: 'everything overridden except main block',
+      data: {
+        // Variables
+        htmlLang: 'htmlLang',
+        htmlClasses: 'htmlClasses',
+        pageTitleLang: 'pageTitleLang',
+        themeColor: 'themeColor',
+        bodyClasses: 'bodyClasses',
+        bodyAttributes: {
+          foo: 'bar',
+          wibble: 'bob',
+        },
+        containerClasses: 'containerClasses',
+        mainClasses: 'mainClasses',
+        mainLang: 'mainLang',
+        // Blocks
+        pageTitle: '<p>pageTitle</p>',
+        headIcons: '<p>headIcons</p>',
+        head: '<p>head</p>',
+        bodyStart: '<p>bodyStart</p>',
+        skipLink: '<p>skipLink</p>',
+        header: '<p>header</p>',
+        beforeContent: '<p>beforeContent</p>',
+        content: '<p>content</p>',
+        footer: '<p>footer</p>',
+        bodyEnd: '<p>bodyEnd</p>',
+      },
+    },
+    {
+      name: 'override main block',
+      data: {
+        main: '<p>footer</p>',
+      },
+    },
+  ];
+
+  const results = await Promise.all(
+    examples.map((example) =>
+      (async () => {
+        const expected = cleanHtml(
+          nunjucksEnv.render('base-template.njk', example.data)
+        );
+
+        const actual = cleanHtml(
+          renderCallback({ template: true, params: example.data })
+        );
+
+        const isEqual = await htmlDiffer.isEqual(actual, expected);
+        const diff = await htmlDiffer.diffHtml(actual, expected);
+
+        return new Promise((resolve, reject) => {
+          resolve({
+            passed: isEqual,
+            example: example.name,
+            diff,
+          });
+        });
+      })()
+    )
+  );
+
+  return new Promise(function (resolve, reject) {
+    resolve({
+      component: 'page template',
+      results,
+    });
+  });
+}
+
 async function diffComponentAgainstReferenceNunjucks(
   version,
   renderCallback,
@@ -109,23 +191,28 @@ async function diffComponentAgainstReferenceNunjucks(
   await fetchGovukFrontend(version, options);
   const components = getGovukComponentList(version, options);
 
-  testProgress.start(components.length);
+  testProgress.start(components.length + 1); // +1 because of the additional base template tests
 
   const nunjucksEnv = new nunjucks.Environment([
+    new nunjucks.FileSystemLoader(__dirname),
     new nunjucks.FileSystemLoader(path.join(config.tempDirectory, version)),
   ]);
 
-  const results = await Promise.all(
-    components.map((component) =>
-      diffSingleComponent(component, version, renderCallback, nunjucksEnv)
-    )
+  const promises = components.map((component) =>
+    diffSingleComponent(component, version, renderCallback, nunjucksEnv)
   );
+
+  promises.push(diffTemplate(version, renderCallback, nunjucksEnv));
+
+  const results = await Promise.all(promises);
 
   testProgress.stop();
 
   let total = 0;
   let totalPassed = 0;
   let totalFailed = 0;
+
+  console.log(results);
 
   results.forEach((result) => {
     const groupName = chalk.whiteBright.bold(result.component);

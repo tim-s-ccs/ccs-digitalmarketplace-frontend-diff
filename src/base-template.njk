@@ -1,0 +1,12 @@
+{% extends "src/govuk/template.njk" %}
+{% block pageTitle %}{% if pageTitle %}{{ pageTitle }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block headIcons %}{% if headIcons %}{{ headIcons }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block head %}{% if head %}{{ head }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block bodyStart %}{% if bodyStart %}{{ bodyStart }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block skipLink %}{% if skipLink %}{{ skipLink }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block header %}{% if header %}{{ header }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block main %}{% if main %}{{ main }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block beforeContent %}{% if beforeContent %}{{ beforeContent }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block content %}{% if content %}{{ content }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block footer %}{% if footer %}{{ footer }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block bodyEnd %}{% if bodyEnd %}{{ bodyEnd }}{% else %}{{ super() }}{% endif %}{% endblock %}

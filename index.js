@@ -97,7 +97,6 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Documentation
 // TODO: Create reference script for the render script which the tool requires
 // TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
-// TODO: Review all deps - which ones can we do without in order to slim the binary down?
 // TODO: Don't love yargs. Try something else
 // TODO: dependency scanning in pipeline. Scheduled job?
 // TODO: General tidy up

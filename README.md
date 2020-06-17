@@ -20,6 +20,10 @@ If you wish, you can install govuk-frontend-diff globally: `npm install -g govuk
 
 As with any cli tool published to the npm registry, you can simply run `npx govuk-frontend-diff`.
 
+## Compatibility
+
+Please note this tool will only work with versions of govuk-frontend later than `v3.0.0` (July 2019) wherein the components were moved underneath a `/govuk` subfolder. See https://github.com/alphagov/govuk-frontend/releases/tag/v3.0.0
+
 ## Usage
 
 ```

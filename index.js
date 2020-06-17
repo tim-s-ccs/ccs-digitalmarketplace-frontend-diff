@@ -96,7 +96,6 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Catch promise rejections properly (Causes CI to pass even when there are errors)
 // TODO: Documentation
 // TODO: Create reference script for the render script which the tool requires
-// TODO: Document restriction that tool only works since the components were moved to src/govuk (Basically version 3.0.0 upwards but need to confirm this)
 // TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
 // TODO: Review all deps - which ones can we do without in order to slim the binary down?
 // TODO: Don't love yargs. Try something else

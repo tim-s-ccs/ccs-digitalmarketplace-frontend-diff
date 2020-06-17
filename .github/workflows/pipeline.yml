@@ -16,7 +16,7 @@ jobs:
           npm run create-executable
       - uses: actions/upload-artifact@v1
         with:
-          name: binaries
+          name: bin
           path: bin
 
   test:
@@ -40,8 +40,9 @@ jobs:
           node-version: 14
       - uses: actions/download-artifact@v1
         with:
-          name: binaries
-      - run: |
+          name: bin
+      - name: Run tests
+        run: |
           npm ci
           npm test
           ${{ matrix.binary }}
@@ -55,7 +56,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
         with:
-          name: binaries
+          name: bin
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

@@ -54,15 +54,18 @@ async function diffSingleComponentExample(
 
   const actual = cleanHtml(renderCallback({ component, params: example.data }));
 
-  const isEqual = await htmlDiffer.isEqual(actual, expected);
-  const diff = await htmlDiffer.diffHtml(actual, expected);
+  const isEqualPromise = htmlDiffer.isEqual(actual, expected);
+  const diffPromise = htmlDiffer.diffHtml(actual, expected);
 
-  return new Promise((resolve, reject) => {
-    resolve({
+  return Promise.all([isEqualPromise, diffPromise]).then(function (
+    isEqual,
+    diff
+  ) {
+    return {
       passed: isEqual,
       example: example.name,
       diff,
-    });
+    };
   });
 }
 
@@ -177,15 +180,18 @@ async function diffTemplate(version, renderCallback, nunjucksEnv, options) {
           renderCallback({ template: true, params: example.data })
         );
 
-        const isEqual = await htmlDiffer.isEqual(actual, expected);
-        const diff = await htmlDiffer.diffHtml(actual, expected);
+        const isEqualPromise = htmlDiffer.isEqual(actual, expected);
+        const diffPromise = htmlDiffer.diffHtml(actual, expected);
 
-        return new Promise((resolve, reject) => {
-          resolve({
+        return Promise.all([isEqualPromise, diffPromise]).then(function (
+          isEqual,
+          diff
+        ) {
+          return {
             passed: isEqual,
             example: example.name,
             diff,
-          });
+          };
         });
       })()
     )

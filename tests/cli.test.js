@@ -5,12 +5,16 @@ const os = require('os');
 
 describe('govuk-frontend-diff cli', () => {
   it('outputs help message if no arguments supplied', () => {
+    let err;
+
     try {
       exec(command);
     } catch (error) {
-      const lines = error.toString().split(os.EOL);
-      lines.splice(0, 1);
-      expect(lines.join('\n')).toMatchSnapshot();
+      err = error;
     }
+
+    const lines = err.toString().split(os.EOL);
+    lines.splice(0, 1);
+    expect(lines.join('\n')).toMatchSnapshot();
   });
 });

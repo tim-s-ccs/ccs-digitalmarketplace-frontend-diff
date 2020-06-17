@@ -58,6 +58,12 @@ const { argv } = yargs
     describe:
       'Specify a subset of the tests to exclude. Should be one or more names of components, space separated',
   })
+  .option('verbose', {
+    type: 'boolean',
+    alias: 'ci',
+    describe:
+      'Verbose logging instead of a simple progress bar. More suitable for CI situations where the progress bar is not useful.',
+  })
   .command(
     '<script>',
     `Path to a script which will render your templates for each component/template/params combination.
@@ -78,6 +84,7 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   forceRefresh: !!argv['force-refresh'],
   include: argv.include,
   exclude: argv.exclude,
+  verbose: argv.verbose,
 });
 
 // TODO: If the script dies, CI still passes (For example - remove pkg config from package.json so that nunjucks template is omitted. This will cause the script to fail but still pass CI)
@@ -93,7 +100,6 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
 // TODO: Review all deps - which ones can we do without in order to slim the binary down?
 // TODO: Don't love yargs. Try something else
-// TODO: Logging levels? Do we want anything more verbose? Or quieter? Or just leave as is?
 // TODO: dependency scanning in pipeline. Scheduled job?
 // TODO: General tidy up
 // TODO: Publish to npm

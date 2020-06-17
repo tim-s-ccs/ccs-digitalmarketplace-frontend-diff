@@ -36,8 +36,13 @@ async function diffSingleComponentExample(
   component,
   example,
   renderCallback,
-  nunjucksEnv
+  nunjucksEnv,
+  options
 ) {
+  if (options.verbose) {
+    console.log('Testing', component, '->', example.name);
+  }
+
   const expected = cleanHtml(
     nunjucksEnv.render(
       path.join('src/govuk/components', component, 'template.njk'),
@@ -65,9 +70,12 @@ async function diffSingleComponent(
   component,
   version,
   renderCallback,
-  nunjucksEnv
+  nunjucksEnv,
+  options
 ) {
-  testProgress.increment();
+  if (!options.verbose) {
+    testProgress.increment();
+  }
 
   const examples = yaml.safeLoad(
     fs.readFileSync(
@@ -88,7 +96,8 @@ async function diffSingleComponent(
         component,
         example,
         renderCallback,
-        nunjucksEnv
+        nunjucksEnv,
+        options
       )
     )
   );
@@ -101,8 +110,10 @@ async function diffSingleComponent(
   });
 }
 
-async function diffTemplate(version, renderCallback, nunjucksEnv) {
-  testProgress.increment();
+async function diffTemplate(version, renderCallback, nunjucksEnv, options) {
+  if (!options.verbose) {
+    testProgress.increment();
+  }
 
   const examples = [
     {
@@ -154,6 +165,10 @@ async function diffTemplate(version, renderCallback, nunjucksEnv) {
   const results = await Promise.all(
     examples.map((example) =>
       (async () => {
+        if (options.verbose) {
+          console.log('Testing page-template', '->', example.name);
+        }
+
         const expected = cleanHtml(
           nunjucksEnv.render('base-template.njk', example.data)
         );
@@ -219,7 +234,9 @@ async function diffComponentAgainstReferenceNunjucks(
     (options.include && options.include.includes('page-template')) ||
     (!options.include && !options.exclude);
 
-  testProgress.start(components.length + (testPageTemplate ? 1 : 0));
+  if (!options.verbose) {
+    testProgress.start(components.length + (testPageTemplate ? 1 : 0));
+  }
 
   const nunjucksEnv = new nunjucks.Environment([
     new nunjucks.FileSystemLoader(__dirname),
@@ -227,16 +244,28 @@ async function diffComponentAgainstReferenceNunjucks(
   ]);
 
   const promises = components.map((component) =>
-    diffSingleComponent(component, version, renderCallback, nunjucksEnv)
+    diffSingleComponent(
+      component,
+      version,
+      renderCallback,
+      nunjucksEnv,
+      options
+    )
   );
 
   if (testPageTemplate) {
-    promises.push(diffTemplate(version, renderCallback, nunjucksEnv));
+    promises.push(diffTemplate(version, renderCallback, nunjucksEnv, options));
   }
 
   const results = await Promise.all(promises);
 
-  testProgress.stop();
+  if (!options.verbose) {
+    testProgress.stop();
+  }
+
+  const resultsTitle = chalk.whiteBright.bold('Results');
+  console.log(os.EOL);
+  console.group(resultsTitle);
 
   let total = 0;
   let totalPassed = 0;
@@ -267,17 +296,19 @@ async function diffComponentAgainstReferenceNunjucks(
 
     console.groupEnd(groupName);
   });
+  console.groupEnd(resultsTitle);
 
+  const summaryTitle = chalk.whiteBright.bold('Summary');
   console.log(os.EOL);
-  console.group(chalk.whiteBright.bold('Results'));
-  console.log(total, ' tests.');
+  console.group(summaryTitle);
+  console.log(total, 'tests.');
   console.log(
     chalk.greenBright(totalPassed),
-    ' passed and ',
+    'passed and',
     chalk.redBright(totalFailed),
-    ' failed'
+    'failed'
   );
-  console.groupEnd('Results');
+  console.groupEnd(summaryTitle);
 
   if (totalFailed > 0) {
     process.exitCode = 1;

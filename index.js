@@ -80,11 +80,13 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   exclude: argv.exclude,
 });
 
+// TODO: If the script dies, CI still passes (For example - remove pkg config from package.json so that nunjucks template is omitted. This will cause the script to fail but still pass CI)
 // TODO: Add additional examples (Both manual and automatically generated worst case)
 // TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
 // TODO: Test suite for _this_ package - running tests against the binaries on their respective platforms as well as the raw nodejs cli
 // TODO: Check it works on windows - are file paths ok as they are?
 // TODO: Optimise promises in main script
+// TODO: Catch promise rejections properly (Causes CI to pass even when there are errors)
 // TODO: Documentation
 // TODO: Create reference script for the render script which the tool requires
 // TODO: Document restriction that tool only works since the components were moved to src/govuk (Basically version 3.0.0 upwards but need to confirm this)

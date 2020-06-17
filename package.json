@@ -9,6 +9,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
+  "pkg": {
+    "assets": "src/base-template.njk"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andymantell/govuk-frontend-diff.git"

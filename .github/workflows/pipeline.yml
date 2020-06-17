@@ -34,7 +34,7 @@ jobs:
           - os: macos-latest
             binary: ./bin/govuk-frontend-diff-macos
     env:
-      GOVUK_FRONTEND_DIFF_COMMAND: govuk-frontend-diff
+      GOVUK_FRONTEND_DIFF_COMMAND: ./govuk-frontend-diff
       FORCE_COLOR: 3
     steps:
       - uses: actions/checkout@v2

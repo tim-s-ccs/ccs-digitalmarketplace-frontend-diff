@@ -24,14 +24,27 @@ As with any cli tool published to the npm registry, you can simply run `npx govu
 
 ```
 Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
+Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
+--exclude=page-template
 
 Commands:
-  index.js <script>  Tests the output of the provided render script against the
-                     govuk-frontend reference nunjucks.
+  govuk-frontend-diff <script>
+                     Path to a script which will render your templates for each
+                     component/template/params combination.
 
-                     This script must take --component and --params arguments,
-                     and return the html for a given component/params combo as
-                     rendered html on stdout
+                     The html output from this script will then be compared
+                     against the reference Nunjucks templates.
+
+                     This script must:
+
+                     take --component and --params arguments (For rendering
+                     individual components)
+
+                     take --template and --params arguments (For rendering the
+                     base template)
+
+                     return the rendered html for a given
+                     template/component/params combo on stdout
 
 Options:
   --help                    Show help                                  [boolean]
@@ -40,8 +53,20 @@ Options:
                             This will normally be references to tags like v3.7.0
                             but this will accept any commit-ish such as branches
                             or even commit identifiers                [required]
+
   --force-refresh           Force a re-download of govuk-frontend, bypassing the
                             cache. Useful if the version you are specifying
                             represents a branch such as if you were testing
                             against master
+
+  --include                 Specify a subset of the tests to run. Should
+                            be one or more names of components, space
+                            separated
+
+                            For example --include accordion button
+                                                                         [array]
+
+  --exclude                 Specify a subset of the tests to exclude. Should be
+                            one or more names of components, space separated
+                                                                         [array]
 ```

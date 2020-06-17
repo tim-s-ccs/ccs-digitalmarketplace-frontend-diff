@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`govuk-frontend-diff cli outputs help message if no arguments supplied 1`] = `
-"Command failed: ./tests/utils/govuk-frontend-diff
-Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
+"Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
 Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
 --exclude=page-template
 

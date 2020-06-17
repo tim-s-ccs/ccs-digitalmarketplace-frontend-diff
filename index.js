@@ -35,6 +35,7 @@ async function performDiff(script, version, options) {
 }
 
 const { argv } = yargs
+  .scriptName('govuk-frontend-diff')
   .usage('Usage: $0 ./render.sh --govuk-frontend-version=v3.7.0')
   .usage(
     'Usage: $0 ./render.sh --govuk-frontend-version=v3.7.0 --exclude=page-template'

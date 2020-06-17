@@ -6,6 +6,7 @@ const os = require('os');
 const cliProgress = require('cli-progress');
 const prettyhtml = require('@starptech/prettyhtml');
 const yaml = require('js-yaml');
+const got = require('got');
 const chalk = require('chalk');
 const { HtmlDiffer } = require('@markedjs/html-differ');
 const diffLogger = require('@markedjs/html-differ/lib/logger');
@@ -184,10 +185,22 @@ async function diffTemplate(version, renderCallback, nunjucksEnv) {
 }
 
 async function diffComponentAgainstReferenceNunjucks(
-  version,
+  requestedVersion,
   renderCallback,
   options
 ) {
+  let version = requestedVersion;
+
+  // If no version supplied, work out what the latest tagged version of govuk-frontend is
+  if (!requestedVersion) {
+    const latestRelease = await got
+      .get(
+        'https://api.github.com/repos/alphagov/govuk-frontend/releases/latest'
+      )
+      .json();
+    version = latestRelease.tag_name;
+  }
+
   await fetchGovukFrontend(version, options);
   const components = getGovukComponentList(version, options).filter((item) => {
     if (options.exclude && options.exclude.includes(item)) {

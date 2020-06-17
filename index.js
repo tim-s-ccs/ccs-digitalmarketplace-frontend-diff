@@ -37,7 +37,8 @@ const { argv } = yargs
   )
   .option('govuk-frontend-version', {
     describe: `Version of govuk-frontend to test against.    
-    This will normally be references to tags like v3.7.0 but this will accept any commit-ish such as branches or even commit identifiers`,
+    This will normally be references to tags like v3.7.0 but this will accept any commit-ish such as branches or even commit identifiers.
+    If not specified, the most recent govuk-frontend tag will be used.`,
   })
   .option('force-refresh', {
     describe:
@@ -71,8 +72,7 @@ const { argv } = yargs
       
     return the rendered html for a given template/component/params combo on stdout`
   )
-  .demandCommand(1)
-  .demandOption(['govuk-frontend-version']);
+  .demandCommand(1);
 
 performDiff(argv._[0], argv['govuk-frontend-version'], {
   forceRefresh: !!argv['force-refresh'],
@@ -80,7 +80,6 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   exclude: argv.exclude,
 });
 
-// TODO: Allow people to omit govuk-frontend-version in order to test against the latest tag
 // TODO: Add additional examples (Both manual and automatically generated worst case)
 // TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
 // TODO: Test suite for _this_ package - running tests against the binaries on their respective platforms as well as the raw nodejs cli

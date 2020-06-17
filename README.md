@@ -52,7 +52,9 @@ Options:
   --govuk-frontend-version  Version of govuk-frontend to test against.
                             This will normally be references to tags like v3.7.0
                             but this will accept any commit-ish such as branches
-                            or even commit identifiers                [required]
+                            or even commit identifiers.
+                            If not specified, the most recent govuk-frontend tag
+                            will be used.
 
   --force-refresh           Force a re-download of govuk-frontend, bypassing the
                             cache. Useful if the version you are specifying

@@ -8,7 +8,7 @@
     "create-executable": "pkg . --out-path=bin",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "jest --notify --verbose --forceExit",
+    "test": "jest --notify --verbose",
     "testLocal": "export GOVUK_FRONTEND_DIFF_COMMAND=./index.js && npm test",
     "updateSnapshots": "export GOVUK_FRONTEND_DIFF_COMMAND=./index.js && jest -u"
   },

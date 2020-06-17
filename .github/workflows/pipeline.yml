@@ -1,9 +1,6 @@
-on:
-  push:
-    tags:
-      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+name: Pipeline
 
-name: Release binaries
+on: [push, pull_request]
 
 jobs:
   build:
@@ -41,6 +38,10 @@ jobs:
   release:
     name: Release binaries
     needs: test
+    on:
+      push:
+        tags:
+          - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

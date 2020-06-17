@@ -34,7 +34,7 @@ jobs:
           - os: macos-latest
             binary: ./bin/govuk-frontend-diff-macos
     env:
-      GOVUK_FRONTEND_DIFF_COMMAND: ${{ matrix.binary }}
+      GOVUK_FRONTEND_DIFF_COMMAND: govuk-frontend-diff
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -46,6 +46,7 @@ jobs:
       - name: Run tests
         run: |
           npm ci
+          mv ${{ matrix.binary }} govuk-frontend-diff
           chmod +x ${{ matrix.binary }}
           npm test
 

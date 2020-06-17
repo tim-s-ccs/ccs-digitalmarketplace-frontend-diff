@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest --notify --verbose",
-    "testLocal": "export GOVUK_FRONTEND_DIFF_COMMAND=./index.js && npm test",
-    "updateSnapshots": "export GOVUK_FRONTEND_DIFF_COMMAND=./index.js && jest -u"
+    "testLocal": "export GOVUK_FRONTEND_DIFF_COMMAND=./tests/utils/govuk-frontend-diff && npm test",
+    "updateSnapshots": "export GOVUK_FRONTEND_DIFF_COMMAND=./tests/utils/govuk-frontend-diff && jest -u"
   },
   "pkg": {
     "assets": "src/base-template.njk"

@@ -1,28 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`govuk-frontend-diff cli outputs help message if no arguments supplied 1`] = `
-"Command failed: ./index.js
-Usage: index.js ./render.sh --govuk-frontend-version=v3.7.0
-Usage: index.js ./render.sh --govuk-frontend-version=v3.7.0
+"Command failed: ./tests/utils/govuk-frontend-diff
+Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
+Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
 --exclude=page-template
 
 Commands:
-  index.js <script>  Path to a script which will render your templates for each
-                     component/template/params combination.
+  govuk-frontend-diff <script>  Path to a script which will render your
+                                templates for each component/template/params
+                                combination.
 
-                     The html output from this script will then be compared
-                     against the reference Nunjucks templates.
+                                The html output from this script will then be
+                                compared against the reference Nunjucks
+                                templates.
 
-                     This script must:
+                                This script must:
 
-                     take --component and --params arguments (For rendering
-                     individual components)
+                                take --component and --params arguments (For
+                                rendering individual components)
 
-                     take --template and --params arguments (For rendering the
-                     base template)
+                                take --template and --params arguments (For
+                                rendering the base template)
 
-                     return the rendered html for a given
-                     template/component/params combo on stdout
+                                return the rendered html for a given
+                                template/component/params combo on stdout
 
 Options:
   --help                    Show help                                  [boolean]

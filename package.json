@@ -5,7 +5,9 @@
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
-    "create-executable": "pkg . --out-path=bin"
+    "create-executable": "pkg . --out-path=bin",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",

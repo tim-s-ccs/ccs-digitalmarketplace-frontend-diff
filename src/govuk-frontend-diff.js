@@ -214,7 +214,12 @@ async function diffComponentAgainstReferenceNunjucks(
     return true;
   });
 
-  testProgress.start(components.length);
+  const testPageTemplate =
+    (options.exclude && !options.exclude.includes('page-template')) ||
+    (options.include && options.include.includes('page-template')) ||
+    (!options.include && !options.exclude);
+
+  testProgress.start(components.length + (testPageTemplate ? 1 : 0));
 
   const nunjucksEnv = new nunjucks.Environment([
     new nunjucks.FileSystemLoader(__dirname),
@@ -225,11 +230,7 @@ async function diffComponentAgainstReferenceNunjucks(
     diffSingleComponent(component, version, renderCallback, nunjucksEnv)
   );
 
-  if (
-    (options.exclude && !options.exclude.includes('page-template')) ||
-    (options.include && options.include.includes('page-template'))
-  ) {
-    testProgress.setTotal(testProgress.getTotal() + 1);
+  if (testPageTemplate) {
     promises.push(diffTemplate(version, renderCallback, nunjucksEnv));
   }
 

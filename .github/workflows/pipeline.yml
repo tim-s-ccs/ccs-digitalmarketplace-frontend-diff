@@ -35,6 +35,7 @@ jobs:
             binary: ./bin/govuk-frontend-diff-macos
     env:
       GOVUK_FRONTEND_DIFF_COMMAND: govuk-frontend-diff
+      FORCE_COLOR: 3
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -46,8 +47,8 @@ jobs:
       - name: Run tests
         run: |
           npm ci
-          mv ${{ matrix.binary }} govuk-frontend-diff
           chmod +x ${{ matrix.binary }}
+          mv ${{ matrix.binary }} govuk-frontend-diff          
           npm test
 
   release:

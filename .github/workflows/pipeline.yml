@@ -45,6 +45,7 @@ jobs:
         run: |
           npm ci
           npm test
+          chmod +x ${{ matrix.binary }}
           ${{ matrix.binary }}
 
   release:

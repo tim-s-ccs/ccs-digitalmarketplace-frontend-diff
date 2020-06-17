@@ -7,7 +7,6 @@ name: Release binaries
 
 jobs:
   build:
-    name: Release binaries
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,6 +17,36 @@ jobs:
         run: |
           npm ci
           npm run create-executable
+      - uses: actions/upload-artifact@v1
+        with:
+          name: binaries
+          path: bin
+
+  test:
+    name: Run tests
+    needs: build
+    runs-on: [windows-latest, ubuntu-latest, macos-latest]
+    steps: 
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - uses: actions/download-artifact@v1
+        with:
+          name: binaries
+      - run: |
+        npm ci
+        npm test
+  
+  release:
+    name: Release binaries
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v1
+        with:
+          name: binaries
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

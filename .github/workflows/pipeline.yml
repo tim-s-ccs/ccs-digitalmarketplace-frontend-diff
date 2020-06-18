@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   nodejs-test:
-    name: Run tests against NodeJS version to fail fast
+    name: Tests NodeJS version (fail fast)
     runs-on: ubuntu-latest
     env:
       GOVUK_FRONTEND_DIFF_COMMAND: ./index.js
@@ -37,7 +37,7 @@ jobs:
           path: bin
 
   test:
-    name: Run tests against OS specific binaries
+    name: Test OS specific binaries
     needs: build
     runs-on: ${{ matrix.os }}
     strategy:

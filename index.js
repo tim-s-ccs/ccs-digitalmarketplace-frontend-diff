@@ -96,6 +96,7 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
 // TODO: Test suite for _this_ package - running tests against the binaries on their respective platforms as well as the raw nodejs cli
 // TODO: Check it works on windows - are file paths ok as they are?
+// TODO: Allow people to configure a different temporary folder
 // TODO: Documentation
 // TODO: Create reference script for the render script which the tool requires
 // TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct

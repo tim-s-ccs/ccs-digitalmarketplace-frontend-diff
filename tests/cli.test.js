@@ -34,7 +34,12 @@ describe('govuk-frontend-diff cli', () => {
     done();
   });
 
-  it('checks all pass when passing the Nunjucks reference templates back through it', (done) => {
+  it('checks all pass when passing the Nunjucks reference templates back through it', async (done) => {
+    const { exitCode, stdout, stderr } = await run(
+      `"node tests/utils/render-nunjucks.js" --govuk-frontend-version=v3.7.0`
+    );
+    expect(stdout + stderr).toMatchSnapshot();
+    expect(exitCode).toEqual(0);
     done();
   });
 
@@ -48,35 +53,35 @@ describe('govuk-frontend-diff cli', () => {
     done();
   });
 
-  it('some checks fail when comparing latest govuk-frontend with an older version', (done) => {
+  it('some checks fail when comparing latest govuk-frontend with an older version', async (done) => {
     done();
   });
 
-  it('can download other versions of govuk-frontend', (done) => {
+  it('can download other versions of govuk-frontend', async (done) => {
     done();
   });
 
-  it('forces a redownload of govuk-frontend when requested', (done) => {
+  it('forces a redownload of govuk-frontend when requested', async (done) => {
     done();
   });
 
-  it('can run a subset of the checks by excluding some', (done) => {
+  it('can run a subset of the checks by excluding some', async (done) => {
     done();
   });
 
-  it('can run a subset of the checks by explicitly including some', (done) => {
+  it('can run a subset of the checks by explicitly including some', async (done) => {
     done();
   });
 
-  it('throws an error if the passed render script throws an error', (done) => {
+  it('throws an error if the passed render script throws an error', async (done) => {
     done();
   });
 
-  it('displays html diffs', (done) => {
+  it('displays html diffs', async (done) => {
     done();
   });
 
-  it('hides html diffs when requested', (done) => {
+  it('hides html diffs when requested', async (done) => {
     done();
   });
 });

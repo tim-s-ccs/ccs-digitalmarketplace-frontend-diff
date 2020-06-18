@@ -30,7 +30,9 @@ async function downloadTarball(version) {
 }
 
 async function fetchGovukFrontend(version, options) {
-  console.log(`Fetching govuk-frontend@${version}`);
+  if (options.verbose) {
+    console.log(`Fetching govuk-frontend@${version}`);
+  }
   const govukFrontendPath = path.join(config.tempDirectory, version);
 
   if (options.forceRefresh) {

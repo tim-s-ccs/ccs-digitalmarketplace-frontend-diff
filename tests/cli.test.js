@@ -36,7 +36,7 @@ describe('govuk-frontend-diff cli', () => {
 
   it('checks all pass when passing the Nunjucks reference templates back through it', async (done) => {
     const { exitCode, stdout, stderr } = await run(
-      `"node tests/utils/render-nunjucks.js" --govuk-frontend-version=v3.7.0`
+      `"node tests/utils/render-nunjucks.js --govuk-frontend-version=v3.7.0" --govuk-frontend-version=v3.7.0`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(0);
@@ -54,6 +54,11 @@ describe('govuk-frontend-diff cli', () => {
   });
 
   it('some checks fail when comparing latest govuk-frontend with an older version', async (done) => {
+    const { exitCode, stdout, stderr } = await run(
+      `"node tests/utils/render-nunjucks.js --govuk-frontend-version=v3.5.0" --govuk-frontend-version=v3.7.0`
+    );
+    expect(stdout + stderr).toMatchSnapshot();
+    expect(exitCode).toEqual(1);
     done();
   });
 

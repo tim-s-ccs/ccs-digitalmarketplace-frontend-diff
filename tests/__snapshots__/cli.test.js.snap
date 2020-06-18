@@ -525,3 +525,382 @@ Options:
 Not enough non-option arguments: got 0, need at least 1
 "
 `;
+
+exports[`govuk-frontend-diff cli some checks fail when comparing latest govuk-frontend with an older version 1`] = `
+"
+
+Results
+  accordion
+    → default ✔
+    → with additional descriptions ✔
+    → with one section open ✔
+    → with all sections already open ✔
+    → with focusable elements inside ✔
+  back-link
+    → default ✔
+    → with custom text ✔
+  breadcrumbs
+    → default ✔
+    → with one level ✔
+    → with multiple levels ✔
+    → without the home section ✔
+    → with last breadcrumb as current page ✔
+    → with collapse on mobile ✘
+    + expected - actual 
+     
+    <div class=\\"govuk-breadcrumbs govuk-breadcrumbs--collapse-on-mobile\\"><ol class=\\"govuk-breadcrumbs__list\\"><li class=\\"govuk-breadcrumbs__list-item\\"><
+    
+    
+  button
+    → default ✔
+    → disabled ✔
+    → link ✔
+    → link disabled ✔
+    → start link ✘
+    + expected - actual 
+     
+    <a class=\\"govuk-button govuk-button--start\\" data-module=\\"govuk-button\\" draggable=\\"false\\" href=\\"/\\" role=\\"button\\">Start now link button<svg aria-hidden=\\"true\\" class=\\"govuk-button__start-icon\\" focusable=\\"false\\" height=\\"19\\" role=\\"presentation\\" viewBox=\\"0 0 33 40\\" width=\\"17.5\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M0 0h13l20 20-20 20H0l20-20z\\" fill=\\"currentColor\\"></svg></a>
+    
+    
+    → input ✔
+    → input disabled ✔
+    → prevent double click ✔
+    → with active state ✔
+    → with hover state ✔
+    → with focus state ✔
+    → Secondary ✔
+    → Secondary disabled ✔
+    → Secondary link ✔
+    → Warning ✔
+    → Warning disabled ✔
+    → Warning link ✔
+  character-count
+    → default ✔
+    → with hint ✔
+    → with default value ✔
+    → with default value exceeding limit ✔
+    → with custom rows ✔
+    → with label as page heading ✔
+    → with word count ✔
+    → with threshold ✔
+  checkboxes
+    → default ✔
+    → with id and name ✔
+    → with hints on items ✔
+    → with disabled item ✔
+    → with legend as a page heading ✔
+    → with a medium legend ✔
+    → without fieldset ✔
+    → with single option set 'aria-describedby' on input ✔
+    → with single option (and hint) set 'aria-describedby' on input ✔
+    → with fieldset and error message ✔
+    → with error message ✔
+    → with error message and hints on items ✔
+    → with very long option text ✔
+    → with conditional items ✔
+    → with conditional item checked ✔
+    → with optional form-group classes showing group error ✔
+    → small ✔
+    → small with long text ✔
+    → small with error ✔
+    → small with hint ✔
+    → small with disabled ✔
+    → small with conditional reveal ✔
+  date-input
+    → default ✔
+    → with errors only ✔
+    → with errors and hint ✔
+    → with error on day input ✔
+    → with error on month input ✔
+    → with error on year input ✔
+    → with default items ✔
+    → with optional form-group classes ✔
+    → with autocomplete values ✔
+    → with input attributes ✔
+  details
+    → default ✔
+    → expanded ✔
+    → with html ✔
+  error-message
+    → default ✔
+  error-summary
+    → default ✔
+    → without links ✔
+    → mixed with and without links ✔
+    → with everything ✔
+  fieldset
+    → default ✔
+    → as page heading ✔
+  file-upload
+    → default ✔
+    → with hint text ✔
+    → with error message ✔
+    → with value and attributes ✔
+    → with label as page heading ✔
+    → with optional form-group classes ✔
+  footer
+    → default ✘
+    + expected - actual 
+     
+    ...
+    __meta\\"><div class=\\"govuk-footer__meta-item govuk-footer__meta-item--grow\\"><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+    → with meta ✘
+    + expected - actual 
+     
+    ...
+    ine-list-item\\"><a class=\\"govuk-footer__link\\" href=\\"#3\\">Item 3</a></li></ul><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+    → with custom meta ✘
+    + expected - actual 
+     
+    ...
+    h2><div class=\\"govuk-footer__meta-custom\\">GOV.UK Prototype Kit v7.0.1</div><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+    → with meta links and meta content ✘
+    + expected - actual 
+     
+    ...
+    ovuk-footer__link\\" href=\\"#\\">Department of Magical Law Enforcement</a></div><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+    → with custom meta ✘
+    + expected - actual 
+     
+    ...
+    h2><div class=\\"govuk-footer__meta-custom\\">GOV.UK Prototype Kit v7.0.1</div><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+    → with navigation ✘
+    + expected - actual 
+     
+    ...
+    __meta\\"><div class=\\"govuk-footer__meta-item govuk-footer__meta-item--grow\\"><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+    → GOV.UK ✘
+    + expected - actual 
+     
+    ...
+    <a class=\\"govuk-footer__link\\" href=\\"#\\">Government Digital Service</a></div><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+    → Three equal columns ✘
+    + expected - actual 
+     
+    ...
+    __meta\\"><div class=\\"govuk-footer__meta-item govuk-footer__meta-item--grow\\"><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+  header
+    → default ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    
+    
+    → with service name ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    
+    
+    → with navigation ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    
+    
+    → with service name and navigation ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    
+    
+    → with large navigation ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    
+    
+    → with product name ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    
+    
+    → full width ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    
+    
+    → full width with navigation ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    
+    
+    → navigation item with html ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    ...
+    -label=\\"Top Level Navigation\\" class=\\"govuk-header__navigation\\" id=\\"navigation\\"><li class=\\"govuk-header__navigation-item govuk-header__navigation-item--active\\"><a class=\\"govuk-header__link\\" href=\\"#1\\"><em>Navigation item 1</em></a></li><li class=\\"govuk-header__navigation-item\\"><a class=\\"govuk-header__link\\" href=\\"#2\\"><em>Navigation item 2</em></a></li><li class=\\"govuk-header__navigation-item\\"><a class=\\"govuk-header__link\\" href=\\"#3\\"><em>Navigation item 3</em></a></li></ul></nav></div></div></header>
+    
+    
+  hint
+    → default ✔
+    → with html ✔
+  input
+    → default ✔
+    → with hint text ✔
+    → with error message ✔
+    → with width-2 class ✔
+    → with width-3 class ✔
+    → with width-4 class ✔
+    → with width-5 class ✔
+    → with width-10 class ✔
+    → with width-20 class ✔
+    → with width-30 class ✔
+    → with label as page heading ✔
+    → with optional form-group classes ✔
+    → with autocomplete attribute ✔
+    → with pattern attribute ✔
+  inset-text
+    → default ✔
+    → with html ✔
+  label
+    → default ✔
+    → with bold text ✔
+    → as page heading ✔
+  panel
+    → default ✔
+    → custom heading level ✔
+  phase-banner
+    → default ✔
+  radios
+    → default ✔
+    → inline ✔
+    → with disabled ✔
+    → with legend as page heading ✔
+    → with a medium legend ✔
+    → with a divider ✔
+    → with hints on items ✔
+    → without fieldset ✔
+    → with fieldset and error message ✔
+    → with very long option text ✔
+    → with conditional items ✔
+    → inline with conditional items ✔
+    → with conditional item checked ✔
+    → with optional form-group classes showing group error ✔
+    → small ✔
+    → small with long text ✔
+    → small with error ✔
+    → small with hint ✔
+    → small with disabled ✔
+    → small with conditional reveal ✔
+    → small inline ✔
+    → small inline extreme ✔
+    → small with a divider ✔
+  select
+    → default ✔
+    → with hint text and error message ✔
+    → with label as page heading ✔
+    → with full width override ✔
+    → with optional form-group classes ✔
+  skip-link
+    → default ✔
+    → with focus ✔
+  summary-list
+    → default ✔
+    → without actions ✔
+    → with some actions ✔
+    → no-border ✔
+    → no-border on last row ✔
+    → overridden-widths ✔
+    → check-your-answers ✔
+    → extreme ✔
+  table
+    → default ✔
+    → table with head ✔
+    → table with head and caption ✔
+  tabs
+    → default ✘
+    + expected - actual 
+     
+    ...
+    list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#past-year\\">Past year</a></li></ul><sectiondiv class=\\"govuk-tabs__panel\\" id=\\"past-day\\"><h2 class=\\"govuk-heading-l\\">Past day</h
+    ...
+    k-table__cell\\">2</td><td class=\\"govuk-table__cell\\">0</td></tr></tbody></table></sectiondiv><sectiondiv class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"past-week\\"><h2 class=\\"g
+    ...
+    table__cell\\">24</td><td class=\\"govuk-table__cell\\">27</td></tr></tbody></table></sectiondiv><sectiondiv class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"past-month\\"><h2 class=\\"
+    ...
+    ble__cell\\">126</td><td class=\\"govuk-table__cell\\">142</td></tr></tbody></table></sectiondiv><sectiondiv class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"past-year\\"><h2 class=\\"g
+    ...
+    e__cell\\">1539</td><td class=\\"govuk-table__cell\\">1265</td></tr></tbody></table></sectiondiv></div>
+    
+    
+    → tabs-with-anchor-in-panel ✘
+    + expected - actual 
+     
+    ...
+    k-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#tab-2\\">Tab 2</a></li></ul><sectiondiv class=\\"govuk-tabs__panel\\" id=\\"tab-1\\"><h2 class=\\"govuk-heading-l\\">Tab 1</h2><p c
+    ...
+    </a></p><p class=\\"govuk-body\\"><a id=\\"anchor\\" tabindex=\\"0\\">Anchor Point</a></p></sectiondiv><sectiondiv class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"tab-2\\"><h2 class=\\"govuk-heading-l\\">Tab 2</h2></sectiondiv></div>
+    
+    
+  tag
+    → default ✔
+    → inactive ✔
+    → grey ✔
+    → blue ✔
+    → turquoise ✔
+    → green ✔
+    → purple ✔
+    → pink ✔
+    → red ✔
+    → orange ✔
+    → yellow ✔
+  textarea
+    → default ✔
+    → with error message ✔
+    → with default value ✔
+    → with custom rows ✔
+    → with label as page heading ✔
+    → with optional form-group classes ✔
+    → with autocomplete attribute ✔
+  warning-text
+    → default ✔
+    → multiple lines ✔
+  page-template
+    → simple use case overriding the most common elements ✔
+    → everything overridden except main block ✔
+    → override main block ✘
+    + expected - actual 
+     
+    ...
+    ovuk-header__link--homepage\\" href=\\"/\\"><span class=\\"govuk-header__logotype\\"><svg aria-hidden=\\"true\\" class=\\"govuk-header__logotype-crown\\" focusable=\\"false\\" height=\\"30\\" role=\\"presentation\\" viewBox=\\"0 0 132 97\\" width=\\"36\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M25 
+    ...
+    __meta\\"><div class=\\"govuk-footer__meta-item govuk-footer__meta-item--grow\\"><svg aria-hidden=\\"true\\" class=\\"govuk-footer__licence-logo\\" focusable=\\"false\\" height=\\"17\\" role=\\"presentation\\" viewBox=\\"0 0 483.2 195.7\\" width=\\"41\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=
+    
+    
+
+
+Summary
+  193 tests.
+  171 passed and 22 failed
+"
+`;

@@ -5,19 +5,25 @@ const path = require('path');
 const fetchGovukFrontend = require('../../src/fetch-govuk-frontend');
 const config = require('../../src/config');
 
-const version = 'v3.7.0';
-(async () => {
-  await fetchGovukFrontend(version, {});
-  const nunjucksEnv = new nunjucks.Environment([
-    new nunjucks.FileSystemLoader(path.join(config.tempDirectory, version)),
-  ]);
+process.on('unhandledRejection', (err) => {
+  throw err;
+});
 
+(async () => {
   const { argv } = yargs
+    .option('govuk-frontend-version')
     .option('component')
     .option('template', {
       type: 'boolean',
     })
     .option('params');
+
+  await fetchGovukFrontend(argv['govuk-frontend-version'], {});
+  const nunjucksEnv = new nunjucks.Environment([
+    new nunjucks.FileSystemLoader(
+      path.join(config.tempDirectory, argv['govuk-frontend-version'])
+    ),
+  ]);
 
   function hyphenatedToCamel(string) {
     return string

@@ -29,8 +29,7 @@ const run = function (args) {
 describe('govuk-frontend-diff cli', () => {
   it('outputs help message if no arguments supplied', async (done) => {
     const { exitCode, stdout, stderr } = await run();
-    expect(stderr).toMatchSnapshot();
-    expect(stdout).toHaveLength(0);
+    expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(1);
 
     done();
@@ -44,8 +43,7 @@ describe('govuk-frontend-diff cli', () => {
     const { exitCode, stdout, stderr } = await run(
       `${path.resolve('./tests/dummy-render-script.sh')} --hide-diffs`
     );
-    expect(stdout).toMatchSnapshot();
-    expect(stderr).toHaveLength(0);
+    expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(1);
 
     done();

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const yargs = require('yargs');
-const { exec } = require('child_process');
+const exec = require('child_process').execFileSync;
 const diffComponentAgainstReferenceNunjucks = require('./src/govuk-frontend-diff');
 
 process.on('unhandledRejection', (err) => {

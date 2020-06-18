@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const yargs = require('yargs');
-const exec = require('child_process').execFileSync;
+const { execFile } = require('child_process');
 const diffComponentAgainstReferenceNunjucks = require('./src/govuk-frontend-diff');
 
 process.on('unhandledRejection', (err) => {
@@ -11,23 +11,39 @@ process.on('unhandledRejection', (err) => {
 async function performDiff(script, version, options) {
   await diffComponentAgainstReferenceNunjucks(
     version,
-    function (args) {
-      let output;
-      if (args.template) {
-        output = exec(script, [
-          '--template',
-          '--params',
-          JSON.stringify(args.params),
-        ]);
-      } else {
-        output = exec(script, [
-          '--component',
-          args.component,
-          '--params',
-          JSON.stringify(args.params),
-        ]);
-      }
-
+    async function (args) {
+      const output = await new Promise((resolve, reject) => {
+        if (args.template) {
+          execFile(
+            script,
+            ['--template', '--params', JSON.stringify(args.params)],
+            (error, stdout, stderr) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(stdout || stderr);
+            }
+          );
+        } else {
+          execFile(
+            script,
+            [
+              '--component',
+              args.component,
+              '--params',
+              JSON.stringify(args.params),
+            ],
+            (error, stdout, stderr) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(stdout || stderr);
+            }
+          );
+        }
+      });
       return output.toString('utf8');
     },
     options

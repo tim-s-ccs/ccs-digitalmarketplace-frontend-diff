@@ -52,7 +52,9 @@ async function diffSingleComponentExample(
     )
   );
 
-  const actual = cleanHtml(renderCallback({ component, params: example.data }));
+  const actual = cleanHtml(
+    await renderCallback({ component, params: example.data })
+  );
 
   const isEqualPromise = htmlDiffer.isEqual(actual, expected);
   const diffPromise = htmlDiffer.diffHtml(actual, expected);
@@ -174,7 +176,7 @@ async function diffTemplate(version, renderCallback, nunjucksEnv, options) {
         );
 
         const actual = cleanHtml(
-          renderCallback({ template: true, params: example.data })
+          await renderCallback({ template: true, params: example.data })
         );
 
         const isEqualPromise = htmlDiffer.isEqual(actual, expected);

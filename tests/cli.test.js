@@ -1,5 +1,4 @@
 const { exec } = require('child_process');
-const path = require('path');
 
 const command = process.env.GOVUK_FRONTEND_DIFF_COMMAND;
 
@@ -41,7 +40,7 @@ describe('govuk-frontend-diff cli', () => {
 
   it('all checks fail when passing nonsense output through it', async (done) => {
     const { exitCode, stdout, stderr } = await run(
-      `"node tests/utils/dummy-render-script.js" --hide-diffs`
+      `"node tests/utils/dummy-render-script.js" --hide-diffs --govuk-frontend-version=v3.7.0`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(1);

@@ -3,8 +3,23 @@ name: Pipeline
 on: [push, pull_request]
 
 jobs:
+  nodejs-test:
+    runs-on: ubuntu-latest
+    env:
+      GOVUK_FRONTEND_DIFF_COMMAND: ./index.js
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Run tests against NodeJS version to fail fast
+        run: |
+          npm ci
+          npm run test
+
   build:
     runs-on: ubuntu-latest
+    needs: nodejs-test
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -20,7 +35,7 @@ jobs:
           path: bin
 
   test:
-    name: Run tests
+    name: Run tests against OS specific binaries
     needs: build
     runs-on: ${{ matrix.os }}
     strategy:

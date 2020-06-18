@@ -41,7 +41,7 @@ describe('govuk-frontend-diff cli', () => {
 
   it('all checks fail when passing nonsense output through it', async (done) => {
     const { exitCode, stdout, stderr } = await run(
-      `${path.resolve('./tests/dummy-render-script.sh')} --hide-diffs`
+      `"node tests/utils/dummy-render-script.js" --hide-diffs`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(1);

@@ -2,7 +2,6 @@
 
 exports[`govuk-frontend-diff cli all checks fail when passing nonsense output through it 1`] = `
 "Fetching govuk-frontend@v3.7.0
-Cached copy found
 
 
 Results

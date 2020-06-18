@@ -33,6 +33,10 @@ async function fetchGovukFrontend(version, options) {
   console.log(`Fetching govuk-frontend@${version}`);
   const govukFrontendPath = path.join(config.tempDirectory, version);
 
+  if (options.forceRefresh) {
+    console.log('Refresh of govuk-frontend requested, downloading from GitHub');
+  }
+
   if (
     !(
       fs.existsSync(govukFrontendPath) &&
@@ -40,19 +44,9 @@ async function fetchGovukFrontend(version, options) {
     ) ||
     options.forceRefresh
   ) {
-    if (options.forceRefresh) {
-      console.log(
-        'Refresh of govuk-frontend requested, downloading from GitHub'
-      );
-    } else {
-      console.log('No cached copy found, downloading from GitHub');
-    }
-
     mkdirp.sync(govukFrontendPath);
     const tarballPath = await downloadTarball(version);
     await decompress(tarballPath, govukFrontendPath, { strip: 1 });
-  } else {
-    console.log('Cached copy found');
   }
 }
 

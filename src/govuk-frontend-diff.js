@@ -57,14 +57,11 @@ async function diffSingleComponentExample(
   const isEqualPromise = htmlDiffer.isEqual(actual, expected);
   const diffPromise = htmlDiffer.diffHtml(actual, expected);
 
-  return Promise.all([isEqualPromise, diffPromise]).then(function (
-    isEqual,
-    diff
-  ) {
+  return Promise.all([isEqualPromise, diffPromise]).then(function (result) {
     return {
-      passed: isEqual,
+      passed: result[0],
       example: example.name,
-      diff,
+      diff: result[1],
     };
   });
 }
@@ -184,13 +181,12 @@ async function diffTemplate(version, renderCallback, nunjucksEnv, options) {
         const diffPromise = htmlDiffer.diffHtml(actual, expected);
 
         return Promise.all([isEqualPromise, diffPromise]).then(function (
-          isEqual,
-          diff
+          result
         ) {
           return {
-            passed: isEqual,
+            passed: result[0],
             example: example.name,
-            diff,
+            diff: result[1],
           };
         });
       })()
@@ -294,8 +290,12 @@ async function diffComponentAgainstReferenceNunjucks(
       if (individualResult.passed) {
         totalPassed += 1;
       } else {
-        diffLogger.logDiffText(individualResult.diff, { charsAroundDiff: 80 });
-        console.log(os.EOL);
+        if (!options.hideDiffs) {
+          diffLogger.logDiffText(individualResult.diff, {
+            charsAroundDiff: 80,
+          });
+          console.log(os.EOL);
+        }
         totalFailed += 1;
       }
     });

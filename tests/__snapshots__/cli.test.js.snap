@@ -1,5 +1,242 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`govuk-frontend-diff cli all checks fail when passing nonsense output through it 1`] = `
+"Fetching govuk-frontend@v3.7.0
+Cached copy found
+
+
+Results
+  accordion
+    → default ✘
+    → with additional descriptions ✘
+    → with one section open ✘
+    → with all sections already open ✘
+    → with focusable elements inside ✘
+  back-link
+    → default ✘
+    → with custom text ✘
+  breadcrumbs
+    → default ✘
+    → with one level ✘
+    → with multiple levels ✘
+    → without the home section ✘
+    → with last breadcrumb as current page ✘
+    → with collapse on mobile ✘
+  button
+    → default ✘
+    → disabled ✘
+    → link ✘
+    → link disabled ✘
+    → start link ✘
+    → input ✘
+    → input disabled ✘
+    → prevent double click ✘
+    → with active state ✘
+    → with hover state ✘
+    → with focus state ✘
+    → Secondary ✘
+    → Secondary disabled ✘
+    → Secondary link ✘
+    → Warning ✘
+    → Warning disabled ✘
+    → Warning link ✘
+  character-count
+    → default ✘
+    → with hint ✘
+    → with default value ✘
+    → with default value exceeding limit ✘
+    → with custom rows ✘
+    → with label as page heading ✘
+    → with word count ✘
+    → with threshold ✘
+  checkboxes
+    → default ✘
+    → with id and name ✘
+    → with hints on items ✘
+    → with disabled item ✘
+    → with legend as a page heading ✘
+    → with a medium legend ✘
+    → without fieldset ✘
+    → with single option set 'aria-describedby' on input ✘
+    → with single option (and hint) set 'aria-describedby' on input ✘
+    → with fieldset and error message ✘
+    → with error message ✘
+    → with error message and hints on items ✘
+    → with very long option text ✘
+    → with conditional items ✘
+    → with conditional item checked ✘
+    → with optional form-group classes showing group error ✘
+    → small ✘
+    → small with long text ✘
+    → small with error ✘
+    → small with hint ✘
+    → small with disabled ✘
+    → small with conditional reveal ✘
+  date-input
+    → default ✘
+    → with errors only ✘
+    → with errors and hint ✘
+    → with error on day input ✘
+    → with error on month input ✘
+    → with error on year input ✘
+    → with default items ✘
+    → with optional form-group classes ✘
+    → with autocomplete values ✘
+    → with input attributes ✘
+  details
+    → default ✘
+    → expanded ✘
+    → with html ✘
+  error-message
+    → default ✘
+  error-summary
+    → default ✘
+    → without links ✘
+    → mixed with and without links ✘
+    → with everything ✘
+  fieldset
+    → default ✘
+    → as page heading ✘
+  file-upload
+    → default ✘
+    → with hint text ✘
+    → with error message ✘
+    → with value and attributes ✘
+    → with label as page heading ✘
+    → with optional form-group classes ✘
+  footer
+    → default ✘
+    → with meta ✘
+    → with custom meta ✘
+    → with meta links and meta content ✘
+    → with custom meta ✘
+    → with navigation ✘
+    → GOV.UK ✘
+    → Three equal columns ✘
+  header
+    → default ✘
+    → with service name ✘
+    → with navigation ✘
+    → with service name and navigation ✘
+    → with large navigation ✘
+    → with product name ✘
+    → full width ✘
+    → full width with navigation ✘
+    → navigation item with html ✘
+  hint
+    → default ✘
+    → with html ✘
+  input
+    → default ✘
+    → with hint text ✘
+    → with error message ✘
+    → with width-2 class ✘
+    → with width-3 class ✘
+    → with width-4 class ✘
+    → with width-5 class ✘
+    → with width-10 class ✘
+    → with width-20 class ✘
+    → with width-30 class ✘
+    → with label as page heading ✘
+    → with optional form-group classes ✘
+    → with autocomplete attribute ✘
+    → with pattern attribute ✘
+  inset-text
+    → default ✘
+    → with html ✘
+  label
+    → default ✘
+    → with bold text ✘
+    → as page heading ✘
+  panel
+    → default ✘
+    → custom heading level ✘
+  phase-banner
+    → default ✘
+  radios
+    → default ✘
+    → inline ✘
+    → with disabled ✘
+    → with legend as page heading ✘
+    → with a medium legend ✘
+    → with a divider ✘
+    → with hints on items ✘
+    → without fieldset ✘
+    → with fieldset and error message ✘
+    → with very long option text ✘
+    → with conditional items ✘
+    → inline with conditional items ✘
+    → with conditional item checked ✘
+    → with optional form-group classes showing group error ✘
+    → small ✘
+    → small with long text ✘
+    → small with error ✘
+    → small with hint ✘
+    → small with disabled ✘
+    → small with conditional reveal ✘
+    → small inline ✘
+    → small inline extreme ✘
+    → small with a divider ✘
+  select
+    → default ✘
+    → with hint text and error message ✘
+    → with label as page heading ✘
+    → with full width override ✘
+    → with optional form-group classes ✘
+  skip-link
+    → default ✘
+    → with focus ✘
+  summary-list
+    → default ✘
+    → without actions ✘
+    → with some actions ✘
+    → no-border ✘
+    → no-border on last row ✘
+    → overridden-widths ✘
+    → check-your-answers ✘
+    → extreme ✘
+  table
+    → default ✘
+    → table with head ✘
+    → table with head and caption ✘
+  tabs
+    → default ✘
+    → tabs-with-anchor-in-panel ✘
+  tag
+    → default ✘
+    → inactive ✘
+    → grey ✘
+    → blue ✘
+    → turquoise ✘
+    → green ✘
+    → purple ✘
+    → pink ✘
+    → red ✘
+    → orange ✘
+    → yellow ✘
+  textarea
+    → default ✘
+    → with error message ✘
+    → with default value ✘
+    → with custom rows ✘
+    → with label as page heading ✘
+    → with optional form-group classes ✘
+    → with autocomplete attribute ✘
+  warning-text
+    → default ✘
+    → multiple lines ✘
+  page-template
+    → simple use case overriding the most common elements ✘
+    → everything overridden except main block ✘
+    → override main block ✘
+
+
+Summary
+  193 tests.
+  0 passed and 193 failed
+"
+`;
+
 exports[`govuk-frontend-diff cli outputs help message if no arguments supplied 1`] = `
 "Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
 Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
@@ -37,7 +274,7 @@ Options:
   --force-refresh           Force a re-download of govuk-frontend, bypassing the
                             cache. Useful if the version you are specifying
                             represents a branch such as if you were testing
-                            against master
+                            against master                             [boolean]
   --include                 Specify a subset of the tests to run. Should
                             be one or more names of components, space
                             separated
@@ -50,6 +287,7 @@ Options:
   --verbose, --ci           Verbose logging instead of a simple progress bar.
                             More suitable for CI situations where the progress
                             bar is not useful.                         [boolean]
+  --hide-diffs              Hide the html diffs from output            [boolean]
 
 Not enough non-option arguments: got 0, need at least 1
 "

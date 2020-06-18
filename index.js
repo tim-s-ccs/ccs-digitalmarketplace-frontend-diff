@@ -46,6 +46,7 @@ const { argv } = yargs
     If not specified, the most recent govuk-frontend tag will be used.`,
   })
   .option('force-refresh', {
+    type: 'boolean',
     describe:
       'Force a re-download of govuk-frontend, bypassing the cache. Useful if the version you are specifying represents a branch such as if you were testing against master',
   })
@@ -69,6 +70,10 @@ const { argv } = yargs
     describe:
       'Verbose logging instead of a simple progress bar. More suitable for CI situations where the progress bar is not useful.',
   })
+  .option('hide-diffs', {
+    type: 'boolean',
+    describe: 'Hide the html diffs from output',
+  })
   .command(
     '<script>',
     `Path to a script which will render your templates for each component/template/params combination.
@@ -86,10 +91,11 @@ const { argv } = yargs
   .demandCommand(1);
 
 performDiff(argv._[0], argv['govuk-frontend-version'], {
-  forceRefresh: !!argv['force-refresh'],
+  forceRefresh: argv['force-refresh'],
   include: argv.include,
   exclude: argv.exclude,
   verbose: argv.verbose,
+  hideDiffs: argv['hide-diffs'],
 });
 
 // TODO: Add additional examples (Both manual and automatically generated worst case)

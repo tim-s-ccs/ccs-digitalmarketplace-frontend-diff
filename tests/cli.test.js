@@ -1,6 +1,9 @@
 const { exec } = require('child_process');
+const path = require('path');
 
 const command = process.env.GOVUK_FRONTEND_DIFF_COMMAND;
+
+jest.setTimeout(50000);
 
 const run = function (args) {
   let execCli;
@@ -25,8 +28,9 @@ const run = function (args) {
 
 describe('govuk-frontend-diff cli', () => {
   it('outputs help message if no arguments supplied', async (done) => {
-    const { exitCode, stderr } = await run();
+    const { exitCode, stdout, stderr } = await run();
     expect(stderr).toMatchSnapshot();
+    expect(stdout).toHaveLength(0);
     expect(exitCode).toEqual(1);
 
     done();
@@ -37,6 +41,13 @@ describe('govuk-frontend-diff cli', () => {
   });
 
   it('all checks fail when passing nonsense output through it', async (done) => {
+    const { exitCode, stdout, stderr } = await run(
+      `${path.resolve('./tests/dummy-render-script.sh')} --hide-diffs`
+    );
+    expect(stdout).toMatchSnapshot();
+    expect(stderr).toHaveLength(0);
+    expect(exitCode).toEqual(1);
+
     done();
   });
 
@@ -61,6 +72,14 @@ describe('govuk-frontend-diff cli', () => {
   });
 
   it('throws an error if the passed render script throws an error', (done) => {
+    done();
+  });
+
+  it('displays html diffs', (done) => {
+    done();
+  });
+
+  it('hides html diffs when requested', (done) => {
     done();
   });
 });

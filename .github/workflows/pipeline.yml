@@ -40,9 +40,6 @@ jobs:
     name: Test OS specific binaries
     needs: build
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]

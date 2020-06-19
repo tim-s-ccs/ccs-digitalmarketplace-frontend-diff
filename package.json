@@ -37,7 +37,6 @@
     "js-yaml": "^3.14.0",
     "mkdirp": "^1.0.4",
     "nunjucks": "^3.2.1",
-    "shell-escape": "^0.2.0",
     "yargs": "^15.3.1"
   },
   "devDependencies": {

@@ -48,7 +48,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
         include:
           - os: windows-latest
-            binary: bin\govuk-frontend-diff-win.exe
+            binary: ./bin/govuk-frontend-diff-win.exe
           - os: ubuntu-latest
             binary: ./bin/govuk-frontend-diff-linux
           - os: macos-latest

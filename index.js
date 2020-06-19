@@ -2,6 +2,7 @@
 
 const yargs = require('yargs');
 const os = require('os');
+const isWsl = require('is-wsl');
 const { exec } = require('child_process');
 const diffComponentAgainstReferenceNunjucks = require('./src/govuk-frontend-diff');
 
@@ -10,7 +11,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 function escapeShellArg(arg) {
-  if (os.platform === 'win32') {
+  if (os.platform === 'win32' || isWsl) {
     return `${arg.replace(/"/g, '""')}`;
   }
   return `'${arg.replace(/'/g, `'\\''`)}'`;

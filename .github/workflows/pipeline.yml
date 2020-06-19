@@ -40,6 +40,7 @@ jobs:
     name: Test OS specific binaries
     needs: build
     runs-on: ${{ matrix.os }}
+    shell: bash
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
@@ -61,10 +62,9 @@ jobs:
         with:
           name: bin
           path: bin
+      - run: npm ci
       - name: Run tests
-        run: |
-          npm ci
-          chmod +x ${{ matrix.binary }}
+        run: chmod +x ${{ matrix.binary }}
           npm test
 
   release:

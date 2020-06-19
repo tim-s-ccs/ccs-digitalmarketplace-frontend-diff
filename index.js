@@ -2,15 +2,12 @@
 
 const yargs = require('yargs');
 const { exec } = require('child_process');
+const shellEscape = require('shell-escape');
 const diffComponentAgainstReferenceNunjucks = require('./src/govuk-frontend-diff');
 
 process.on('unhandledRejection', (err) => {
   throw err;
 });
-
-function escapeShellArg(arg) {
-  return `'${arg.replace(/'/g, `'\\''`)}'`;
-}
 
 async function performDiff(script, version, options) {
   await diffComponentAgainstReferenceNunjucks(
@@ -19,11 +16,11 @@ async function performDiff(script, version, options) {
       const output = await new Promise((resolve, reject) => {
         if (args.template) {
           exec(
-            `${script} ${[
+            `${script} ${shellEscape([
               '--template',
               '--params',
-              escapeShellArg(JSON.stringify(args.params)),
-            ].join(' ')}`,
+              JSON.stringify(args.params),
+            ])}`,
             (error, stdout, stderr) => {
               if (error) {
                 reject(error);
@@ -34,12 +31,12 @@ async function performDiff(script, version, options) {
           );
         } else {
           exec(
-            `${script} ${[
+            `${script} ${shellEscape([
               '--component',
               args.component,
               '--params',
-              escapeShellArg(JSON.stringify(args.params)),
-            ].join(' ')}`,
+              JSON.stringify(args.params),
+            ])}`,
             (error, stdout, stderr) => {
               if (error) {
                 reject(error);

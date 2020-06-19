@@ -3,17 +3,9 @@ name: Pipeline
 on: [push, pull_request]
 
 jobs:
-  linting:
-    name: Linting
-    runs-on: ubuntu-latest
-    steps:
-      - name: Super-Linter
-        uses: github/super-linter@v2.0.0
-
   nodejs-test:
     name: Tests NodeJS version (fail fast)
     runs-on: ubuntu-latest
-    needs: linting
     env:
       GOVUK_FRONTEND_DIFF_COMMAND: ./index.js
     steps:
@@ -22,6 +14,8 @@ jobs:
         with:
           node-version: 14
       - run: npm ci
+      - name: Linting
+        run: npm run lint
       - name: Run tests
         run: npm run test
 

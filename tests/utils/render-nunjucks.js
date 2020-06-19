@@ -2,7 +2,6 @@ const nunjucks = require('nunjucks');
 const yargs = require('yargs');
 const path = require('path');
 
-const fetchGovukFrontend = require('../../src/fetch-govuk-frontend');
 const config = require('../../src/config');
 
 process.on('unhandledRejection', (err) => {
@@ -18,7 +17,6 @@ process.on('unhandledRejection', (err) => {
     })
     .option('params');
 
-  await fetchGovukFrontend(argv['govuk-frontend-version'], {});
   const nunjucksEnv = new nunjucks.Environment([
     new nunjucks.FileSystemLoader(
       path.join(config.tempDirectory, argv['govuk-frontend-version'])

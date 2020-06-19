@@ -1,4 +1,5 @@
 const { exec } = require('child_process');
+const fetchGovukFrontend = require('../src/fetch-govuk-frontend');
 
 const command = process.env.GOVUK_FRONTEND_DIFF_COMMAND;
 
@@ -54,6 +55,8 @@ describe('govuk-frontend-diff cli', () => {
   });
 
   it('some checks fail when comparing latest govuk-frontend with an older version', async (done) => {
+    await fetchGovukFrontend('v3.5.0', {});
+
     const { exitCode, stdout, stderr } = await run(
       `"node tests/utils/render-nunjucks.js --govuk-frontend-version=v3.5.0" --govuk-frontend-version=v3.7.0`
     );

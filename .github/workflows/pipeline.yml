@@ -66,7 +66,8 @@ jobs:
           path: bin
       - run: npm ci
       - name: Run tests
-        run: chmod +x ${{ matrix.binary }}
+        run: |
+          chmod +x ${{ matrix.binary }}
           npm test
 
   release:

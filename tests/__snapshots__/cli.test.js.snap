@@ -235,6 +235,247 @@ Summary
 "
 `;
 
+exports[`govuk-frontend-diff cli can run a subset of the checks by excluding some 1`] = `
+"
+
+Results
+  back-link
+    → default ✔
+    → with custom text ✔
+  breadcrumbs
+    → default ✔
+    → with one level ✔
+    → with multiple levels ✔
+    → without the home section ✔
+    → with last breadcrumb as current page ✔
+    → with collapse on mobile ✔
+  character-count
+    → default ✔
+    → with hint ✔
+    → with default value ✔
+    → with default value exceeding limit ✔
+    → with custom rows ✔
+    → with label as page heading ✔
+    → with word count ✔
+    → with threshold ✔
+  checkboxes
+    → default ✔
+    → with id and name ✔
+    → with hints on items ✔
+    → with disabled item ✔
+    → with legend as a page heading ✔
+    → with a medium legend ✔
+    → without fieldset ✔
+    → with single option set 'aria-describedby' on input ✔
+    → with single option (and hint) set 'aria-describedby' on input ✔
+    → with fieldset and error message ✔
+    → with error message ✔
+    → with error message and hints on items ✔
+    → with very long option text ✔
+    → with conditional items ✔
+    → with conditional item checked ✔
+    → with optional form-group classes showing group error ✔
+    → small ✔
+    → small with long text ✔
+    → small with error ✔
+    → small with hint ✔
+    → small with disabled ✔
+    → small with conditional reveal ✔
+  date-input
+    → default ✔
+    → with errors only ✔
+    → with errors and hint ✔
+    → with error on day input ✔
+    → with error on month input ✔
+    → with error on year input ✔
+    → with default items ✔
+    → with optional form-group classes ✔
+    → with autocomplete values ✔
+    → with input attributes ✔
+  details
+    → default ✔
+    → expanded ✔
+    → with html ✔
+  error-message
+    → default ✔
+  error-summary
+    → default ✔
+    → without links ✔
+    → mixed with and without links ✔
+    → with everything ✔
+  fieldset
+    → default ✔
+    → as page heading ✔
+  file-upload
+    → default ✔
+    → with hint text ✔
+    → with error message ✔
+    → with value and attributes ✔
+    → with label as page heading ✔
+    → with optional form-group classes ✔
+  footer
+    → default ✔
+    → with meta ✔
+    → with custom meta ✔
+    → with meta links and meta content ✔
+    → with custom meta ✔
+    → with navigation ✔
+    → GOV.UK ✔
+    → Three equal columns ✔
+  header
+    → default ✔
+    → with service name ✔
+    → with navigation ✔
+    → with service name and navigation ✔
+    → with large navigation ✔
+    → with product name ✔
+    → full width ✔
+    → full width with navigation ✔
+    → navigation item with html ✔
+  hint
+    → default ✔
+    → with html ✔
+  input
+    → default ✔
+    → with hint text ✔
+    → with error message ✔
+    → with width-2 class ✔
+    → with width-3 class ✔
+    → with width-4 class ✔
+    → with width-5 class ✔
+    → with width-10 class ✔
+    → with width-20 class ✔
+    → with width-30 class ✔
+    → with label as page heading ✔
+    → with optional form-group classes ✔
+    → with autocomplete attribute ✔
+    → with pattern attribute ✔
+  inset-text
+    → default ✔
+    → with html ✔
+  label
+    → default ✔
+    → with bold text ✔
+    → as page heading ✔
+  panel
+    → default ✔
+    → custom heading level ✔
+  phase-banner
+    → default ✔
+  radios
+    → default ✔
+    → inline ✔
+    → with disabled ✔
+    → with legend as page heading ✔
+    → with a medium legend ✔
+    → with a divider ✔
+    → with hints on items ✔
+    → without fieldset ✔
+    → with fieldset and error message ✔
+    → with very long option text ✔
+    → with conditional items ✔
+    → inline with conditional items ✔
+    → with conditional item checked ✔
+    → with optional form-group classes showing group error ✔
+    → small ✔
+    → small with long text ✔
+    → small with error ✔
+    → small with hint ✔
+    → small with disabled ✔
+    → small with conditional reveal ✔
+    → small inline ✔
+    → small inline extreme ✔
+    → small with a divider ✔
+  select
+    → default ✔
+    → with hint text and error message ✔
+    → with label as page heading ✔
+    → with full width override ✔
+    → with optional form-group classes ✔
+  skip-link
+    → default ✔
+    → with focus ✔
+  summary-list
+    → default ✔
+    → without actions ✔
+    → with some actions ✔
+    → no-border ✔
+    → no-border on last row ✔
+    → overridden-widths ✔
+    → check-your-answers ✔
+    → extreme ✔
+  table
+    → default ✔
+    → table with head ✔
+    → table with head and caption ✔
+  tabs
+    → default ✔
+    → tabs-with-anchor-in-panel ✔
+  tag
+    → default ✔
+    → inactive ✔
+    → grey ✔
+    → blue ✔
+    → turquoise ✔
+    → green ✔
+    → purple ✔
+    → pink ✔
+    → red ✔
+    → orange ✔
+    → yellow ✔
+  textarea
+    → default ✔
+    → with error message ✔
+    → with default value ✔
+    → with custom rows ✔
+    → with label as page heading ✔
+    → with optional form-group classes ✔
+    → with autocomplete attribute ✔
+  warning-text
+    → default ✔
+    → multiple lines ✔
+
+
+Summary
+  168 tests.
+  168 passed and 0 failed
+"
+`;
+
+exports[`govuk-frontend-diff cli can run a subset of the checks by explicitly including some 1`] = `
+"
+
+Results
+  button
+    → default ✔
+    → disabled ✔
+    → link ✔
+    → link disabled ✔
+    → start link ✔
+    → input ✔
+    → input disabled ✔
+    → prevent double click ✔
+    → with active state ✔
+    → with hover state ✔
+    → with focus state ✔
+    → Secondary ✔
+    → Secondary disabled ✔
+    → Secondary link ✔
+    → Warning ✔
+    → Warning disabled ✔
+    → Warning link ✔
+  page-template
+    → simple use case overriding the most common elements ✔
+    → everything overridden except main block ✔
+    → override main block ✔
+
+
+Summary
+  20 tests.
+  20 passed and 0 failed
+"
+`;
+
 exports[`govuk-frontend-diff cli checks all pass when passing the Nunjucks reference templates back through it 1`] = `
 "
 
@@ -467,6 +708,122 @@ Results
 Summary
   193 tests.
   193 passed and 0 failed
+"
+`;
+
+exports[`govuk-frontend-diff cli displays html diffs 1`] = `
+"
+
+Results
+  button
+    → default ✘
+    + expected - actual 
+     
+    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\" type=\\"submit\\">Save and continue</button>
+    
+    
+    → disabled ✘
+    + expected - actual 
+     
+    <button aria-disabled=\\"true\\" class=\\"govuk-button govuk-button--disabled\\" data-module=\\"govuk-button\\" disabled=\\"disabled\\" type=\\"submit\\">Disabled button</button>
+    
+    
+    → link ✔
+    → link disabled ✔
+    → start link ✘
+    + expected - actual 
+     
+    <a class=\\"govuk-button govuk-button--start\\" data-module=\\"govuk-button\\" draggable=\\"false\\" href=\\"/\\" role=\\"button\\">Start now link button<svg aria-hidden=\\"true\\" class=\\"govuk-button__start-icon\\" focusable=\\"false\\" height=\\"19\\" role=\\"presentation\\" viewBox=\\"0 0 33 40\\" width=\\"17.5\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M0 0h13l20 20-20 20H0l20-20z\\" fill=\\"currentColor\\"></svg></a>
+    
+    
+    → input ✔
+    → input disabled ✔
+    → prevent double click ✘
+    + expected - actual 
+     
+    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\" data-prevent-double-click=\\"true\\" type=\\"submit\\">Submit</button>
+    
+    
+    → with active state ✘
+    + expected - actual 
+     
+    <button class=\\":active govuk-button\\" data-module=\\"govuk-button\\" name=\\"active\\" type=\\"submit\\">Active</button>
+    
+    
+    → with hover state ✘
+    + expected - actual 
+     
+    <button class=\\":hover govuk-button\\" data-module=\\"govuk-button\\" name=\\"hover\\" type=\\"submit\\">Hovered</button>
+    
+    
+    → with focus state ✘
+    + expected - actual 
+     
+    <button class=\\":focus govuk-button\\" data-module=\\"govuk-button\\" name=\\"focus\\" type=\\"submit\\">Focussed</button>
+    
+    
+    → Secondary ✘
+    + expected - actual 
+     
+    <button class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\" name=\\"secondary\\" type=\\"submit\\">Secondary button</button>
+    
+    
+    → Secondary disabled ✘
+    + expected - actual 
+     
+    ...
+    tton--secondary\\" data-module=\\"govuk-button\\" disabled=\\"disabled\\" name=\\"secondary\\" type=\\"submit\\">Secondary button disabled</button>
+    
+    
+    → Secondary link ✔
+    → Warning ✘
+    + expected - actual 
+     
+    <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\" name=\\"Warning\\" type=\\"submit\\">Warning button</button>
+    
+    
+    → Warning disabled ✘
+    + expected - actual 
+     
+    <button aria-disabled=\\"true\\" class=\\"govuk-button govuk-button--disabled govuk-button--warning\\" data-module=\\"govuk-button\\" disabled=\\"disabled\\" name=\\"warning\\" type=\\"submit\\">Warning button disabled</button>
+    
+    
+    → Warning link ✔
+
+
+Summary
+  17 tests.
+  6 passed and 11 failed
+"
+`;
+
+exports[`govuk-frontend-diff cli hides html diffs when requested 1`] = `
+"
+
+Results
+  button
+    → default ✘
+    → disabled ✘
+    → link ✔
+    → link disabled ✔
+    → start link ✘
+    → input ✔
+    → input disabled ✔
+    → prevent double click ✘
+    → with active state ✘
+    → with hover state ✘
+    → with focus state ✘
+    → Secondary ✘
+    → Secondary disabled ✘
+    → Secondary link ✔
+    → Warning ✘
+    → Warning disabled ✘
+    → Warning link ✔
+
+
+Summary
+  17 tests.
+  6 passed and 11 failed
 "
 `;
 
@@ -902,5 +1259,38 @@ Results
 Summary
   193 tests.
   171 passed and 22 failed
+"
+`;
+
+exports[`govuk-frontend-diff cli throws an error if the passed render script throws an error 1`] = `
+"/Users/andym/work/govuk-frontend-diff/index.js:8
+  throw err;
+  ^
+
+Error: Command failed: node tests/utils/script-with-error.js --component warning-text --params '{\\"text\\":\\"If you are not covered by this License), You must: (a) comply with the terms stated above for the purpose of this license. It explains, for example, the production of a Source form, including but not limited to, the implied warranties or conditions of this License, without any additional file created by such Respondent to you under Sections 2.1 and 2.2 above. Larger Works. You may choose to distribute such a notice and a brief idea of what it does.\\",\\"iconFallbackText\\":\\"Warning\\"}'
+/Users/andym/work/govuk-frontend-diff/tests/utils/script-with-error.js:1
+throw Error('Hello');
+^
+
+Error: Hello
+    at Object.<anonymous> (/Users/andym/work/govuk-frontend-diff/tests/utils/script-with-error.js:1:7)
+    at Module._compile (internal/modules/cjs/loader.js:1138:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1158:10)
+    at Module.load (internal/modules/cjs/loader.js:986:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:879:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:71:12)
+    at internal/main/run_main_module.js:17:47
+
+    at ChildProcess.exithandler (child_process.js:303:12)
+    at ChildProcess.emit (events.js:315:20)
+    at maybeClose (internal/child_process.js:1021:16)
+    at Socket.<anonymous> (internal/child_process.js:443:11)
+    at Socket.emit (events.js:315:20)
+    at Pipe.<anonymous> (net.js:674:12) {
+  killed: false,
+  code: 1,
+  signal: null,
+  cmd: \`node tests/utils/script-with-error.js --component warning-text --params '{\\"text\\":\\"If you are not covered by this License), You must: (a) comply with the terms stated above for the purpose of this license. It explains, for example, the production of a Source form, including but not limited to, the implied warranties or conditions of this License, without any additional file created by such Respondent to you under Sections 2.1 and 2.2 above. Larger Works. You may choose to distribute such a notice and a brief idea of what it does.\\",\\"iconFallbackText\\":\\"Warning\\"}'\`
+}
 "
 `;

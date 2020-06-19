@@ -134,4 +134,5 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Can the duplicated code between the templates and components be usefully DRYed out
 // TODO: Publish to npm
 // TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
+// TODO: Info message when new versions available?
 // TODO: Create a Github action?

@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   linting:
     name: Linting
+    runs-on: ubuntu-latest
     steps:
       - name: Super-Linter
         uses: github/super-linter@v2.0.0

@@ -40,7 +40,9 @@ jobs:
     name: Test OS specific binaries
     needs: build
     runs-on: ${{ matrix.os }}
-    shell: bash
+    defaults:
+      run:
+        shell: bash
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]

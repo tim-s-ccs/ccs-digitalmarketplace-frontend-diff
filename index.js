@@ -11,7 +11,7 @@ process.on('unhandledRejection', (err) => {
 
 function escapeShellArg(arg) {
   if (os.platform === 'win32') {
-    return `"${arg.replace(/"/g, `'\\"`)}"`;
+    return `${arg.replace(/"/g, '""')}`;
   }
   return `'${arg.replace(/'/g, `'\\''`)}'`;
 }
@@ -139,4 +139,5 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Publish to npm
 // TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
 // TODO: Info message when new versions available?
+// TODO: Review method of calling script - any security issues? Could instead ask people to start a simple http server and communicate with that to avoid shell?
 // TODO: Create a Github action?

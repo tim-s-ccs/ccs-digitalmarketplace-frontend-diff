@@ -138,7 +138,7 @@ describe('govuk-frontend-diff cli', () => {
   });
 
   it('throws an error if the passed render script throws an error', async (done) => {
-    const [server, port] = await runExampleServer('v3.7.0');
+    const [server] = await runExampleServer('v3.7.0');
 
     const { exitCode, stdout, stderr } = await run(`http://`);
     expect(stdout + stderr).toEqual(expect.stringContaining('ENOTFOUND'));

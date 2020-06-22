@@ -42,7 +42,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest] # windows-latest disabled
+        os: [ubuntu-latest, macos-latest, windows-latest]
         include:
           - os: windows-latest
             binary: govuk-frontend-diff-win.exe

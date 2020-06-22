@@ -95,7 +95,10 @@ describe('govuk-frontend-diff cli', () => {
     const { exitCode, stdout, stderr } = await run(
       `"node tests/utils/script-with-error.js" --govuk-frontend-version=v3.7.0`
     );
-    expect(stdout + stderr).toMatchSnapshot();
+    expect(stdout + stderr).toEqual(
+      expect.stringContaining('Error: Command failed')
+    );
+    expect(stdout + stderr).toEqual(expect.stringContaining('Error: Hello'));
     expect(exitCode).toEqual(1);
     done();
   });

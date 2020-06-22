@@ -1,47 +1,37 @@
+const express = require('express');
 const nunjucks = require('nunjucks');
-const yargs = require('yargs');
 const path = require('path');
-
+const yargs = require('yargs');
+const bodyParser = require('body-parser');
 const config = require('../../src/config');
 
-process.on('unhandledRejection', (err) => {
-  throw err;
+const { argv } = yargs.option('govuk-frontend-version').option('port');
+
+const app = express();
+const { port } = argv;
+const govukFrontendVersion = argv['govuk-frontend-version'];
+
+app.use(bodyParser.json());
+
+const nunjucksEnv = new nunjucks.Environment([
+  new nunjucks.FileSystemLoader(
+    path.join(config.tempDirectory, govukFrontendVersion)
+  ),
+]);
+
+app.post('/component/:component', (req, res) => {
+  const data = req.body;
+
+  const template = `{% from "src/govuk/components/${req.params.component}/macro.njk" import govuk${data.macro_name} %}
+                      {{ govuk${data.macro_name}(params) }}`;
+
+  res.send(nunjucksEnv.renderString(template, { params: data.params }).trim());
 });
 
-(async () => {
-  const { argv } = yargs
-    .option('govuk-frontend-version')
-    .option('component')
-    .option('template', {
-      type: 'boolean',
-    })
-    .option('params');
+app.post('/template', (req, res) => {
+  const data = req.body;
 
-  const nunjucksEnv = new nunjucks.Environment([
-    new nunjucks.FileSystemLoader(
-      path.join(config.tempDirectory, argv['govuk-frontend-version'])
-    ),
-  ]);
-
-  function hyphenatedToCamel(string) {
-    return string
-      .split('-')
-      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-      .join('');
-  }
-
-  if (argv.component) {
-    const macroName = hyphenatedToCamel(argv.component);
-    const template = `{% from "src/govuk/components/${argv.component}/macro.njk" import govuk${macroName} %}
-                {{ govuk${macroName}(params) }}`;
-
-    process.stdout.write(
-      nunjucksEnv
-        .renderString(template, { params: JSON.parse(argv.params) })
-        .trim()
-    );
-  } else if (argv.template) {
-    const template = `
+  const template = `
         {% extends "src/govuk/template.njk" %}
         {% block pageTitle %}{% if pageTitle %}{{ pageTitle }} {% else %} {{ super() }} {% endif %} {% endblock %}
         {% block headIcons %} {% if headIcons %} {{ headIcons }} {% else %} {{ super() }} {% endif %} {% endblock %}
@@ -56,8 +46,7 @@ process.on('unhandledRejection', (err) => {
         {% block bodyEnd %} {% if bodyEnd %} {{ bodyEnd }} {% else %} {{ super() }} {% endif %} {% endblock %}
     `;
 
-    process.stdout.write(
-      nunjucksEnv.renderString(template, JSON.parse(argv.params))
-    );
-  }
-})();
+  res.send(nunjucksEnv.renderString(template, data).trim());
+});
+
+app.listen(port, () => process.send(`Ready`));

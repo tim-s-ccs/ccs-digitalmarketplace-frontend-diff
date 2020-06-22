@@ -1,56 +1,40 @@
 #!/usr/bin/env node
 
 const yargs = require('yargs');
-const { exec } = require('child_process');
+const got = require('got');
 const diffComponentAgainstReferenceNunjucks = require('./src/govuk-frontend-diff');
 
 process.on('unhandledRejection', (err) => {
   throw err;
 });
 
-function escapeShellArg(arg) {
-  return `'${arg.replace(/'/g, `'\\''`)}'`;
+function hyphenatedToCamel(string) {
+  return string
+    .split('-')
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join('');
 }
 
-async function performDiff(script, version, options) {
+async function performDiff(url, version, options) {
   await diffComponentAgainstReferenceNunjucks(
     version,
     async function (args) {
-      const output = await new Promise((resolve, reject) => {
-        if (args.template) {
-          exec(
-            `${script} ${[
-              '--template',
-              '--params',
-              escapeShellArg(JSON.stringify(args.params)),
-            ].join(' ')}`,
-            (error, stdout, stderr) => {
-              if (error) {
-                reject(error);
-                return;
-              }
-              resolve(stdout || stderr);
-            }
-          );
-        } else {
-          exec(
-            `${script} ${[
-              '--component',
-              args.component,
-              '--params',
-              escapeShellArg(JSON.stringify(args.params)),
-            ].join(' ')}`,
-            (error, stdout, stderr) => {
-              if (error) {
-                reject(error);
-                return;
-              }
-              resolve(stdout || stderr);
-            }
-          );
-        }
-      });
-      return output.toString('utf8');
+      if (args.template) {
+        return got
+          .post(`${url}/template`, {
+            json: args.params,
+          })
+          .text();
+      }
+
+      return got
+        .post(`${url}/component/${args.component}`, {
+          json: {
+            params: args.params,
+            macro_name: hyphenatedToCamel(args.component),
+          },
+        })
+        .text();
     },
     options
   );
@@ -77,8 +61,7 @@ const { argv } = yargs
     conflicts: 'exclude',
     describe: `Specify a subset of the tests to run. Should be one or more names of components, space separated
       
-      For example --include accordion button
-      `,
+      For example --include accordion button`,
   })
   .option('exclude', {
     array: true,
@@ -97,18 +80,14 @@ const { argv } = yargs
     describe: 'Hide the html diffs from output',
   })
   .command(
-    '<script>',
-    `Path to a script which will render your templates for each component/template/params combination.
+    '<url>',
+    `URL to a server which will render your templates for each component/template/params combination.
     
-    The html output from this script will then be compared against the reference Nunjucks templates.
+    The html output from this will then be compared against the reference Nunjucks templates.
 
-    This script must:
+    This server must:
 
-    take --component and --params arguments (For rendering individual components)
-      
-    take --template and --params arguments (For rendering the base template)
-      
-    return the rendered html for a given template/component/params combo on stdout`
+    have /component/<component-name and /template routes (POST)`
   )
   .demandCommand(1);
 
@@ -120,9 +99,9 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   hideDiffs: argv['hide-diffs'],
 });
 
+// TODO: Finish documentation on render server in yargs section
 // TODO: Add additional examples (Both manual and automatically generated worst case)
 // TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
-// TODO: Test suite for _this_ package - running tests against the binaries on their respective platforms as well as the raw nodejs cli
 // TODO: Check it works on windows - are file paths ok as they are?
 // TODO: Allow people to configure a different temporary folder
 // TODO: Documentation

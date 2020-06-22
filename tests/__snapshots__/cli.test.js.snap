@@ -833,24 +833,16 @@ Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
 --exclude=page-template
 
 Commands:
-  govuk-frontend-diff <script>  Path to a script which will render your
-                                templates for each component/template/params
-                                combination.
+  govuk-frontend-diff <url>  URL to a server which will render your templates
+                             for each component/template/params combination.
 
-                                The html output from this script will then be
-                                compared against the reference Nunjucks
-                                templates.
+                             The html output from this will then be compared
+                             against the reference Nunjucks templates.
 
-                                This script must:
+                             This server must:
 
-                                take --component and --params arguments (For
-                                rendering individual components)
-
-                                take --template and --params arguments (For
-                                rendering the base template)
-
-                                return the rendered html for a given
-                                template/component/params combo on stdout
+                             have /component/<component-name and /template
+                             routes (POST)
 
 Options:
   --help                    Show help                                  [boolean]
@@ -865,12 +857,10 @@ Options:
                             cache. Useful if the version you are specifying
                             represents a branch such as if you were testing
                             against master                             [boolean]
-  --include                 Specify a subset of the tests to run. Should
-                            be one or more names of components, space
-                            separated
+  --include                 Specify a subset of the tests to run. Should be one
+                            or more names of components, space separated
 
-                            For example --include accordion button
-                                                                         [array]
+                            For example --include accordion button       [array]
   --exclude                 Specify a subset of the tests to exclude. Should be
                             one or more names of components, space separated
                                                                          [array]

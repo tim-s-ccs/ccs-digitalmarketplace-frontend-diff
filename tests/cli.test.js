@@ -141,7 +141,9 @@ describe('govuk-frontend-diff cli', () => {
     const [server] = await runExampleServer('v3.7.0');
 
     const { exitCode, stdout, stderr } = await run(`http://`);
-    expect(stdout + stderr).toEqual(expect.stringContaining('ENOTFOUND'));
+    expect(stdout + stderr).toEqual(
+      expect.stringContaining('RequestError: getaddrinfo')
+    );
     expect(exitCode).toEqual(1);
 
     server.kill();

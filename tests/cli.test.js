@@ -140,7 +140,9 @@ describe('govuk-frontend-diff cli', () => {
   it('throws an error if the passed render script throws an error', async (done) => {
     const [server] = await runExampleServer('v3.7.0');
 
-    const { exitCode, stdout, stderr } = await run(`http://`);
+    const { exitCode, stdout, stderr } = await run(
+      `http:// --govuk-frontend-version=v3.7.0`
+    );
     expect(stdout + stderr).toEqual(
       expect.stringContaining('RequestError: getaddrinfo')
     );

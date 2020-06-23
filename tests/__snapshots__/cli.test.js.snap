@@ -868,6 +868,7 @@ Options:
                             More suitable for CI situations where the progress
                             bar is not useful.                         [boolean]
   --hide-diffs              Hide the html diffs from output            [boolean]
+  --ignore-attributes       Attributes to exclude from html diffing      [array]
 
 Not enough non-option arguments: got 0, need at least 1
 "

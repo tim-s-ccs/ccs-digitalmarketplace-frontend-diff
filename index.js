@@ -79,6 +79,10 @@ const { argv } = yargs
     type: 'boolean',
     describe: 'Hide the html diffs from output',
   })
+  .option('ignore-attributes', {
+    array: true,
+    describe: 'Attributes to exclude from html diffing',
+  })
   .command(
     '<url>',
     `URL to a server which will render your templates for each component/template/params combination.
@@ -97,21 +101,23 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   exclude: argv.exclude,
   verbose: argv.verbose,
   hideDiffs: argv['hide-diffs'],
+  ignoreAttributes: argv['ignore-attributes'] || []
 });
 
+// Release 1
 // TODO: Finish documentation on render server in yargs section
-// TODO: Add additional examples (Both manual and automatically generated worst case)
-// TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
-// TODO: Check it works on windows - are file paths ok as they are?
-// TODO: Allow people to configure a different temporary folder
 // TODO: Documentation
 // TODO: Create reference script for the render script which the tool requires
 // TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
-// TODO: Don't love yargs. Try something else
-// TODO: dependency scanning in pipeline. Scheduled job?
-// TODO: General tidy up
-// TODO: Can the duplicated code between the templates and components be usefully DRYed out
 // TODO: Publish to npm
 // TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
+// TODO: Worst case data examples
+// TODO: Add additional examples
+
+// Subsequent releases
+// TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
+// TODO: Allow people to configure a different temporary folder
+// TODO: dependency scanning in pipeline. Scheduled job?
+// TODO: Can the duplicated code between the templates and components be usefully DRYed out
 // TODO: Info message when new versions available?
 // TODO: Create a Github action?

@@ -14,11 +14,6 @@ const getGovukComponentList = require('./get-govuk-component-list');
 const fetchGovukFrontend = require('./fetch-govuk-frontend');
 const config = require('./config');
 
-const htmlDiffer = new HtmlDiffer({
-  ignoreAttributes: [],
-  ignoreSelfClosingSlash: true,
-});
-
 const testProgress = new cliProgress.SingleBar(
   {
     format: 'Running tests {bar} {percentage}% | ETA: {eta}s | {value}/{total}',
@@ -37,10 +32,20 @@ async function diffSingleComponentExample(
   example,
   renderCallback,
   nunjucksEnv,
+  htmlDiffer,
   options
 ) {
   if (options.verbose) {
     console.log('Testing', component, '->', example.name);
+  }
+
+  // Header examples specify serviceName but not serviceUrl, causing rendering differences
+  // Temporarily tweak the examples until fix is in place upstream
+  // See https://github.com/alphagov/govuk-frontend/pull/1825
+  if (component === 'header') {    
+    if ('serviceName' in example.data) {
+      example.data.serviceUrl = '/foo';
+    }
   }
 
   const expected = cleanHtml(
@@ -73,6 +78,7 @@ async function diffSingleComponent(
   version,
   renderCallback,
   nunjucksEnv,
+  htmlDiffer,
   options
 ) {
   if (!options.verbose) {
@@ -99,6 +105,7 @@ async function diffSingleComponent(
         example,
         renderCallback,
         nunjucksEnv,
+        htmlDiffer,
         options
       )
     )
@@ -112,7 +119,7 @@ async function diffSingleComponent(
   });
 }
 
-async function diffTemplate(version, renderCallback, nunjucksEnv, options) {
+async function diffTemplate(version, renderCallback, nunjucksEnv, htmlDiffer, options) {
   if (!options.verbose) {
     testProgress.increment();
   }
@@ -208,6 +215,11 @@ async function diffComponentAgainstReferenceNunjucks(
   renderCallback,
   options
 ) {
+  const htmlDiffer = new HtmlDiffer({
+    ignoreAttributes: options.ignoreAttributes,
+    ignoreSelfClosingSlash: true,
+  });
+
   let version = requestedVersion;
 
   // If no version supplied, work out what the latest tagged version of govuk-frontend is
@@ -253,12 +265,13 @@ async function diffComponentAgainstReferenceNunjucks(
       version,
       renderCallback,
       nunjucksEnv,
+      htmlDiffer,
       options
     )
   );
 
   if (testPageTemplate) {
-    promises.push(diffTemplate(version, renderCallback, nunjucksEnv, options));
+    promises.push(diffTemplate(version, renderCallback, nunjucksEnv, htmlDiffer, options));
   }
 
   const results = await Promise.all(promises);

@@ -116,7 +116,7 @@ jobs:
 
   publish-npm:
     name: Publish to npm
-    needs: test
+    needs: pre-release
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
@@ -124,8 +124,8 @@ jobs:
       - uses: actions/setup-node@v2.0.0
         with:
           node-version: 14
+          registry-url: "https://registry.npmjs.org"
       - name: Publish
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-          NPM_EMAIL_ADDRESS: ${{ secrets.NPM_EMAIL_ADDRESS }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: npm publish

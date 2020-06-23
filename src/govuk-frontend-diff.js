@@ -81,10 +81,6 @@ async function diffSingleComponent(
   htmlDiffer,
   options
 ) {
-  if (!options.verbose) {
-    testProgress.increment();
-  }
-
   const examples = yaml.safeLoad(
     fs.readFileSync(
       path.join(
@@ -111,6 +107,10 @@ async function diffSingleComponent(
     )
   );
 
+  if (!options.verbose) {
+    testProgress.increment();
+  }
+
   return new Promise(function (resolve, reject) {
     resolve({
       component,
@@ -126,10 +126,6 @@ async function diffTemplate(
   htmlDiffer,
   options
 ) {
-  if (!options.verbose) {
-    testProgress.increment();
-  }
-
   const examples = [
     {
       name: 'simple use case overriding the most common elements',
@@ -207,6 +203,10 @@ async function diffTemplate(
       })()
     )
   );
+
+  if (!options.verbose) {
+    testProgress.increment();
+  }
 
   return new Promise(function (resolve, reject) {
     resolve({

@@ -105,6 +105,7 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 });
 
 // Release 1
+
 // TODO: Finish documentation on render server in yargs section
 // TODO: Documentation
 // TODO: Create reference script for the render script which the tool requires
@@ -113,6 +114,7 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Add additional examples
 
 // Subsequent releases
+// TODO: Automatically manage changelog somehow?
 // TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
 // TODO: Allow people to configure a different temporary folder
 // TODO: dependency scanning in pipeline. Scheduled job?

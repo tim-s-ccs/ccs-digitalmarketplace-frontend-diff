@@ -161,7 +161,9 @@ async function diffTemplate(
         headIcons: '<p>headIcons</p>',
         head: '<p>head</p>',
         bodyStart: '<p>bodyStart</p>',
-        skipLink: '<p>skipLink</p>',
+        skipLink: {
+          text: 'skipLink',
+        },
         header: '<p>header</p>',
         beforeContent: '<p>beforeContent</p>',
         content: '<p>content</p>',

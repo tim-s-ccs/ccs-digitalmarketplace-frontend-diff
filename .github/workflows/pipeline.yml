@@ -125,4 +125,7 @@ jobs:
         with:
           node-version: 14
       - name: Publish
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_EMAIL_ADDRESS: ${{ secrets.NPM_EMAIL_ADDRESS }}
         run: npm publish

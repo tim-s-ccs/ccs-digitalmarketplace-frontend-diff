@@ -124,4 +124,4 @@ jobs:
         with:
           node-version: 14
       - name: Publish
-        run: npm publish --dry-run
+        run: npm publish

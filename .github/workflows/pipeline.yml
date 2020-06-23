@@ -67,9 +67,22 @@ jobs:
           chmod +x ${{ matrix.binary }}
           npm test
 
+  pre-release:
+    name: Pre release checks
+    needs: test
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.0.0
+        with:
+          node-version: 14
+      - name: Check package.json
+        run: node scripts/check-package.js --tag-name=${{ github.ref }}
+
   release:
     name: Release binaries
-    needs: test
+    needs: pre-release
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
@@ -99,3 +112,16 @@ jobs:
           done
           githubref=${{ github.ref }}
           hub release edit "${assets[@]}" -m "${githubref##*/}" "${githubref##*/}"
+
+  publish-npm:
+    name: Publish to npm
+    needs: test
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.0.0
+        with:
+          node-version: 14
+      - name: Publish
+        run: npm publish --dry-run

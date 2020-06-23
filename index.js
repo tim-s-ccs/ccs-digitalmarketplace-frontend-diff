@@ -108,8 +108,6 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
 // TODO: Finish documentation on render server in yargs section
 // TODO: Documentation
 // TODO: Create reference script for the render script which the tool requires
-// TODO: Check package.json version number against tag when publishing binaries - to ensure the command line version flag is correct
-// TODO: Publish to npm
 // TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
 // TODO: Worst case data examples
 // TODO: Add additional examples

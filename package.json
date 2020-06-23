@@ -15,6 +15,10 @@
   "pkg": {
     "assets": "src/base-template.njk"
   },
+  "files": [
+    "index.js",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andymantell/govuk-frontend-diff.git"

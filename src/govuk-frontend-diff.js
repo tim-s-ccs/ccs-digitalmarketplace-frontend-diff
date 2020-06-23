@@ -42,7 +42,7 @@ async function diffSingleComponentExample(
   // Header examples specify serviceName but not serviceUrl, causing rendering differences
   // Temporarily tweak the examples until fix is in place upstream
   // See https://github.com/alphagov/govuk-frontend/pull/1825
-  if (component === 'header') {    
+  if (component === 'header') {
     if ('serviceName' in example.data) {
       example.data.serviceUrl = '/foo';
     }
@@ -119,7 +119,13 @@ async function diffSingleComponent(
   });
 }
 
-async function diffTemplate(version, renderCallback, nunjucksEnv, htmlDiffer, options) {
+async function diffTemplate(
+  version,
+  renderCallback,
+  nunjucksEnv,
+  htmlDiffer,
+  options
+) {
   if (!options.verbose) {
     testProgress.increment();
   }
@@ -271,7 +277,9 @@ async function diffComponentAgainstReferenceNunjucks(
   );
 
   if (testPageTemplate) {
-    promises.push(diffTemplate(version, renderCallback, nunjucksEnv, htmlDiffer, options));
+    promises.push(
+      diffTemplate(version, renderCallback, nunjucksEnv, htmlDiffer, options)
+    );
   }
 
   const results = await Promise.all(promises);

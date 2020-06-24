@@ -2,7 +2,7 @@
 
 ![Pipeline status](https://github.com/surevine/govuk-frontend-diff/workflows/Pipeline/badge.svg)
 [![version](https://img.shields.io/npm/v/govuk-frontend-diff.svg?style=flat-square)](https://www.npmjs.com/package/govuk-frontend-diff)
-[![MIT License](https://img.shields.io/npm/l/govuk-frontend-diff.svg?style=flat-square)](https://github.com/surevine/govuk-frontend-diff/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/npm/l/govuk-frontend-diff.svg?style=flat-square)](https://github.com/surevine/govuk-frontend-diff/blob/main/LICENSE)
 
 Command line tool to compare a custom implementation of govuk-frontend templates with the reference Nunjucks.
 

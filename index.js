@@ -54,7 +54,7 @@ const { argv } = yargs
   .option('force-refresh', {
     type: 'boolean',
     describe:
-      'Force a re-download of govuk-frontend, bypassing the cache. Useful if the version you are specifying represents a branch such as if you were testing against master',
+      'Force a re-download of govuk-frontend, bypassing the cache. Useful if the version you are specifying represents a branch.',
   })
   .option('include', {
     array: true,

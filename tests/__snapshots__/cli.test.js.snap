@@ -861,8 +861,7 @@ Options:
                             will be used.
   --force-refresh           Force a re-download of govuk-frontend, bypassing the
                             cache. Useful if the version you are specifying
-                            represents a branch such as if you were testing
-                            against master                             [boolean]
+                            represents a branch.                       [boolean]
   --include                 Specify a subset of the tests to run. Should be one
                             or more names of components, space separated
 

@@ -5,11 +5,10 @@ const yargs = require('yargs');
 const bodyParser = require('body-parser');
 const config = require('../../src/config');
 
-const { argv } = yargs.option('govuk-frontend-version').option('port');
-
 const app = express();
-const { port } = argv;
-const govukFrontendVersion = argv['govuk-frontend-version'];
+
+const { argv } = yargs.option('govuk-frontend-version').option('port');
+const { port, 'govuk-frontend-version': govukFrontendVersion } = argv;
 
 app.use(bodyParser.json());
 
@@ -19,15 +18,17 @@ const nunjucksEnv = new nunjucks.Environment([
   ),
 ]);
 
+// Component route
 app.post('/component/:component', (req, res) => {
   const data = req.body;
 
   const template = `{% from "src/govuk/components/${req.params.component}/macro.njk" import govuk${data.macro_name} %}
                       {{ govuk${data.macro_name}(params) }}`;
 
-  res.send(nunjucksEnv.renderString(template, { params: data.params }).trim());
+  res.send(nunjucksEnv.renderString(template, { params: data.params }));
 });
 
+// Template route
 app.post('/template', (req, res) => {
   const data = req.body;
 
@@ -46,7 +47,9 @@ app.post('/template', (req, res) => {
         {% block bodyEnd %} {% if bodyEnd %} {{ bodyEnd }} {% else %} {{ super() }} {% endif %} {% endblock %}
     `;
 
-  res.send(nunjucksEnv.renderString(template, data).trim());
+  res.send(nunjucksEnv.renderString(template, data));
 });
 
-app.listen(port, () => process.send(`Ready`));
+// Start the app
+// This example uses process.send because it is forked as a child process from the tests which need to know when the server is ready
+app.listen(port, () => process.send('Ready'));

@@ -42,9 +42,9 @@ async function performDiff(url, version, options) {
 
 const { argv } = yargs
   .scriptName('govuk-frontend-diff')
-  .usage('Usage: $0 ./render.sh --govuk-frontend-version=v3.7.0')
+  .usage('Usage: $0 http://localhost:3000 --govuk-frontend-version=v3.7.0')
   .usage(
-    'Usage: $0 ./render.sh --govuk-frontend-version=v3.7.0 --exclude=page-template'
+    'Usage: $0 http://localhost:3000 --govuk-frontend-version=v3.7.0 --exclude=page-template'
   )
   .option('govuk-frontend-version', {
     describe: `Version of govuk-frontend to test against.    
@@ -91,7 +91,11 @@ const { argv } = yargs
 
     This server must:
 
-    have /component/<component-name and /template routes (POST)`
+    - Have /component/<component-name> and /template routes which accept data POSTed as JSON
+    - Respond with rendered html
+
+    A reference server and more detailed instructions can be found in the readme at https://github.com/surevine/govuk-frontend-diff
+    `
   )
   .demandCommand(1);
 
@@ -103,21 +107,3 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   hideDiffs: argv['hide-diffs'],
   ignoreAttributes: argv['ignore-attributes'] || [],
 });
-
-// Release 1
-
-// TODO: Finish documentation on render server in yargs section
-// TODO: Documentation
-// TODO: Create reference script for the render script which the tool requires
-// TODO: Roll pull requests against govuk-react-jsx and govuk-frontend-jinja using this package
-// TODO: Worst case data examples
-// TODO: Add additional examples
-
-// Subsequent releases
-// TODO: Automatically manage changelog somehow?
-// TODO: Allow people to specify their own additional examples? (Maybe encourage them to submit pull requests to this repo if they use this option)
-// TODO: Allow people to configure a different temporary folder
-// TODO: dependency scanning in pipeline. Scheduled job?
-// TODO: Can the duplicated code between the templates and components be usefully DRYed out
-// TODO: Info message when new versions available?
-// TODO: Create a Github action?

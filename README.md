@@ -4,7 +4,9 @@
 [![version](https://img.shields.io/npm/v/govuk-frontend-diff.svg?style=flat-square)](https://www.npmjs.com/package/govuk-frontend-diff)
 [![MIT License](https://img.shields.io/npm/l/govuk-frontend-diff.svg?style=flat-square)](https://github.com/surevine/govuk-frontend-diff/blob/master/LICENSE)
 
-Command line tool to compare a custom implementation of govuk-frontend templates with the reference Nunjucks
+Command line tool to compare a custom implementation of govuk-frontend templates with the reference Nunjucks.
+
+The tools works by rendering the govuk-frontend Nunjucks templates using the [example data provided by govuk-frontend](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml) for each component. It then passes this same data to an http server (which you need to provide) and expects to receive html responses. It then compares the two using [https://github.com/markedjs/html-differ](https://github.com/markedjs/html-differ).
 
 ## Installation
 
@@ -31,8 +33,8 @@ Please note this tool will only work with versions of govuk-frontend later than 
 ## Usage
 
 ```
-Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
-Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
+Usage: govuk-frontend-diff http://localhost:3000 --govuk-frontend-version=v3.7.0
+Usage: govuk-frontend-diff http://localhost:3000 --govuk-frontend-version=v3.7.0
 --exclude=page-template
 
 Commands:
@@ -44,8 +46,14 @@ Commands:
 
                              This server must:
 
-                             have /component/<component-name and /template
-                             routes (POST)
+                             - Have /component/<component-name> and /template
+                             routes which accept data POSTed as JSON
+                             - Respond with rendered html
+
+                             A reference server and more detailed instructions
+                             can be found in the readme at
+                             https://github.com/surevine/govuk-frontend-diff
+
 
 Options:
   --help                    Show help                                  [boolean]
@@ -72,4 +80,82 @@ Options:
                             bar is not useful.                         [boolean]
   --hide-diffs              Hide the html diffs from output            [boolean]
   --ignore-attributes       Attributes to exclude from html diffing      [array]
+```
+
+## Creating the html server for govuk-frontend-diff
+
+Below is a Python/Flask reference server (Lifted directly from https://github.com/LandRegistry/govuk-frontend-jinja/tests/utils/app.py).
+
+You will need to create an equivalent of this in your desired Language / Framework.
+
+The key points are:
+
+- A `/template` route
+- A `/components/<component-name>` route (where `<component-name>` will be the hyphenated name such as `character-count`)
+- Both routes need to respond to POST requests and accept JSON payloads
+- For the component route, the JSON payload contains `macro_name` and `params` keys.  
+  `macro_name` is the camelcased version of the component name, such as `CharacterCount`.  
+  `params` is the data which needs to be passed to the component macro / function / template or whatever construct the target language uses
+- The component route should respond with the bare html for the component, with no wrapping `<html>`, `<body>` elements etc
+- For the template route, the JSON payload contains the complete data which should be passed to the page template.
+
+```python
+
+import os
+from jinja2 import FileSystemLoader, PrefixLoader
+from flask import Flask, render_template_string, request
+
+app = Flask(__name__)
+
+app.jinja_loader = PrefixLoader({
+    'govuk_frontend_jinja': FileSystemLoader(searchpath=os.path.join(os.path.dirname(__file__),
+                                             '../../govuk_frontend_jinja/templates'))
+})
+
+
+# Template route
+@app.route('/template', methods=['POST'])
+def template():
+    data = request.json
+
+    # Construct a page template which can override any of the blocks if they are specified
+    # This doesn't need to be inline - it could be it's own file
+    template = '''
+        {% extends "govuk_frontend_jinja/template.html" %}
+        {% block pageTitle %}{% if pageTitle %}{{ pageTitle }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block headIcons %}{% if headIcons %}{{ headIcons }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block head %}{% if head %}{{ head }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block bodyStart %}{% if bodyStart %}{{ bodyStart }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block skipLink %}{% if skipLink %}{{ skipLink }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block header %}{% if header %}{{ header }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block main %}{% if main %}{{ main }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block beforeContent %}{% if beforeContent %}{{ beforeContent }}{% else %}{{ super() }}{% endif %}{% endblock %} # noqa: E501
+        {% block content %}{% if content %}{{ content }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block footer %}{% if footer %}{{ footer }}{% else %}{{ super() }}{% endif %}{% endblock %}
+        {% block bodyEnd %}{% if bodyEnd %}{{ bodyEnd }}{% else %}{{ super() }}{% endif %}{% endblock %}
+    '''
+
+    # Render the full html template
+    return render_template_string(template, **data)
+
+
+# Component route
+@app.route('/component/<component>', methods=['POST'])
+def component(component):
+    data = request.json
+
+    # Render the component using the data provided
+    # component is the hyphenated component name e.g. character-count
+    # data['macro_name'] is the camelcased name e.g. CharacterCount
+    # data['params] are the params that will be passed to the macro
+    # Returns an html response that is just the template in question - no wrapping <html>, <body> elements etc
+    return render_template_string('''
+        {{% from "govuk_frontend_jinja/components/" + component + "/macro.html" import govuk{macro_name} %}}
+        {{{{ govuk{macro_name}(params) }}}}
+    '''.format(macro_name=data['macro_name']),
+        component=component,
+        params=data['params']
+    )
+
+
 ```

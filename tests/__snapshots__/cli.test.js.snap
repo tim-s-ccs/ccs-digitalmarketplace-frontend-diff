@@ -828,8 +828,8 @@ Summary
 `;
 
 exports[`govuk-frontend-diff cli outputs help message if no arguments supplied 1`] = `
-"Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
-Usage: govuk-frontend-diff ./render.sh --govuk-frontend-version=v3.7.0
+"Usage: govuk-frontend-diff http://localhost:3000 --govuk-frontend-version=v3.7.0
+Usage: govuk-frontend-diff http://localhost:3000 --govuk-frontend-version=v3.7.0
 --exclude=page-template
 
 Commands:
@@ -841,8 +841,14 @@ Commands:
 
                              This server must:
 
-                             have /component/<component-name and /template
-                             routes (POST)
+                             - Have /component/<component-name> and /template
+                             routes which accept data POSTed as JSON
+                             - Respond with rendered html
+
+                             A reference server and more detailed instructions
+                             can be found in the readme at
+                             https://github.com/surevine/govuk-frontend-diff
+
 
 Options:
   --help                    Show help                                  [boolean]

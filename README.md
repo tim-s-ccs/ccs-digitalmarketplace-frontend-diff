@@ -156,5 +156,4 @@ def component(component):
         params=data['params']
     )
 
-
 ```

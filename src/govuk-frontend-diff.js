@@ -39,15 +39,6 @@ async function diffSingleComponentExample(
     console.log('Testing', component, '->', example.name);
   }
 
-  // Header examples specify serviceName but not serviceUrl, causing rendering differences
-  // Temporarily tweak the examples until fix is in place upstream
-  // See https://github.com/alphagov/govuk-frontend/pull/1825
-  if (component === 'header') {
-    if ('serviceName' in example.data) {
-      example.data.serviceUrl = '/foo';
-    }
-  }
-
   const expected = cleanHtml(
     nunjucksEnv.render(
       path.join('src/govuk/components', component, 'template.njk'),

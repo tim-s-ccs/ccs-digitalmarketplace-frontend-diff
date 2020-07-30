@@ -1,6 +1,6 @@
 {
   "name": "govuk-frontend-diff",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Command line tool to compare a custom implementation of govuk-frontend templates with the reference Nunjucks",
   "main": "index.js",
   "bin": "index.js",
@@ -8,7 +8,7 @@
     "create-executable": "pkg . --out-path=bin",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "jest --notify --verbose --forceExit",
+    "test": "jest tests --notify --verbose --forceExit",
     "testLocal": "export GOVUK_FRONTEND_DIFF_COMMAND=./index.js && npm test",
     "updateSnapshots": "export GOVUK_FRONTEND_DIFF_COMMAND=./index.js && jest -u"
   },
@@ -30,35 +30,35 @@
   },
   "homepage": "https://github.com/surevine/govuk-frontend-diff#readme",
   "dependencies": {
-    "@markedjs/html-differ": "^3.0.2",
+    "@markedjs/html-differ": "^3.0.3",
     "@starptech/prettyhtml": "^0.10.0",
     "chalk": "^4.1.0",
     "cli-progress": "^3.8.2",
     "decompress": "^4.2.1",
     "ent": "^2.2.0",
     "glob": "^7.1.6",
-    "got": "^11.3.0",
+    "got": "^11.5.1",
     "js-yaml": "^3.14.0",
     "mkdirp": "^1.0.4",
-    "nunjucks": "^3.2.1",
-    "yargs": "^15.3.1"
+    "nunjucks": "^3.2.2",
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "body-parser": "^1.19.0",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb": "^18.1.0",
+    "eslint": "7.2.0",
+    "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-wesbos": "0.0.19",
     "eslint-plugin-html": "^6.0.2",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-jsx-a11y": "^6.3.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^4.0.4",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.0.8",
     "express": "^4.17.1",
-    "jest": "^26.0.1",
+    "jest": "^26.2.1",
     "prettier": "^2.0.5",
-    "pkg": "^4.4.8"
+    "pkg": "^4.4.9"
   }
 }

@@ -110,4 +110,5 @@ performDiff(argv._[0], argv['govuk-frontend-version'], {
   verbose: argv.verbose,
   hideDiffs: argv['hide-diffs'],
   ignoreAttributes: argv['ignore-attributes'] || [],
+  skipHidden: argv['skip-hidden'],
 });

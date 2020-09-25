@@ -12,6 +12,10 @@
 
 ## Releases
 
+### v1.1.1
+
+- Fix broken `skip-hidden` functionality added in last version.
+
 ### v1.1.0
 
 - Add `skip-hidden` cli option to allow you to skip tests using the "hidden" examples from govuk-frontend

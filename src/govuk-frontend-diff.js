@@ -35,6 +35,12 @@ async function diffSingleComponentExample(
   htmlDiffer,
   options
 ) {
+  if (options.skipHidden && example.hidden) {
+    return Promise.resolve({
+      skipped: true,
+    });
+  }
+
   if (options.verbose) {
     console.log('Testing', component, '->', example.name);
   }
@@ -291,28 +297,30 @@ async function diffComponentAgainstReferenceNunjucks(
     const groupName = chalk.whiteBright.bold(result.component);
     console.group(groupName);
 
-    result.results.forEach((individualResult) => {
-      total += 1;
+    result.results
+      .filter((item) => !item.skipped)
+      .forEach((individualResult) => {
+        total += 1;
 
-      console.log(
-        chalk.whiteBright.bold('→'),
-        individualResult.example,
-        individualResult.passed
-          ? chalk.greenBright.bold('✔')
-          : chalk.redBright.bold('✘')
-      );
-      if (individualResult.passed) {
-        totalPassed += 1;
-      } else {
-        if (!options.hideDiffs) {
-          diffLogger.logDiffText(individualResult.diff, {
-            charsAroundDiff: 80,
-          });
-          console.log(os.EOL);
+        console.log(
+          chalk.whiteBright.bold('→'),
+          individualResult.example,
+          individualResult.passed
+            ? chalk.greenBright.bold('✔')
+            : chalk.redBright.bold('✘')
+        );
+        if (individualResult.passed) {
+          totalPassed += 1;
+        } else {
+          if (!options.hideDiffs) {
+            diffLogger.logDiffText(individualResult.diff, {
+              charsAroundDiff: 80,
+            });
+            console.log(os.EOL);
+          }
+          totalFailed += 1;
         }
-        totalFailed += 1;
-      }
-    });
+      });
 
     console.groupEnd(groupName);
   });

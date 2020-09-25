@@ -79,6 +79,8 @@ Options:
                             bar is not useful.                         [boolean]
   --hide-diffs              Hide the html diffs from output            [boolean]
   --ignore-attributes       Attributes to exclude from html diffing      [array]
+  --skip-hidden             Skip examples from govuk-frontend that are marked as
+                            "hidden"                                   [boolean]
 ```
 
 ## Creating the html server for govuk-frontend-diff

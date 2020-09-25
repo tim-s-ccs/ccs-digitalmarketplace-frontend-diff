@@ -83,6 +83,10 @@ const { argv } = yargs
     array: true,
     describe: 'Attributes to exclude from html diffing',
   })
+  .option('skip-hidden', {
+    type: 'boolean',
+    describe: 'Skip examples from govuk-frontend that are marked as "hidden"',
+  })
   .command(
     '<url>',
     `URL to a server which will render your templates for each component/template/params combination.

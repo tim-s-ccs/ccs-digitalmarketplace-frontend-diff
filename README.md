@@ -8,6 +8,12 @@ Command line tool to compare a custom implementation of govuk-frontend templates
 
 The tools works by rendering the govuk-frontend Nunjucks templates using the [example data provided by govuk-frontend](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml) for each component. It then passes this same data to an http server (which you need to provide) and expects to receive html responses. It then compares the two using [https://github.com/markedjs/html-differ](https://github.com/markedjs/html-differ).
 
+---
+
+> NOTE: This repository will soon be all but obselete, since govuk-frontend includes fixtures directly in the package from 3.9.0 upwards. There are currently some issues with these (See https://github.com/alphagov/govuk-frontend/issues/1962) but once these are resolved, I will be moving my repositories to using these and deprecating this tool. I will of course leave it here in case anyone's using it, but it will no longer receive ongoing support
+
+---
+
 ## Installation
 
 ### Using the binaries

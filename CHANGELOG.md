@@ -12,6 +12,9 @@
 
 ## Releases
 
+### v1.1.2
+
+- Fix govuk-frontend v4.4.0 tests by no longer decoding encoded html entities with `ent.decode`.
 ### v1.1.1
 
 - Fix broken `skip-hidden` functionality added in last version.

@@ -1,5 +1,4 @@
 const nunjucks = require('nunjucks');
-const ent = require('ent');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -22,7 +21,7 @@ const testProgress = new cliProgress.SingleBar(
 );
 
 function cleanHtml(dirtyHtml) {
-  return prettyhtml(ent.decode(dirtyHtml), {
+  return prettyhtml(dirtyHtml, {
     sortAttributes: true,
   }).contents;
 }

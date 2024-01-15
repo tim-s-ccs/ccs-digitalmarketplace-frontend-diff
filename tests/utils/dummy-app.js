@@ -7,8 +7,13 @@ const config = require('../../src/config');
 
 const app = express();
 
-const { argv } = yargs.option('govuk-frontend-version').option('port');
-const { port, 'govuk-frontend-version': govukFrontendVersion } = argv;
+const { argv } = yargs
+  .option('digitalmarketplace-frontend-version')
+  .option('port');
+const {
+  port,
+  'digitalmarketplace-frontend-version': govukFrontendVersion,
+} = argv;
 
 app.use(bodyParser.json());
 
@@ -22,8 +27,8 @@ const nunjucksEnv = new nunjucks.Environment([
 app.post('/component/:component', (req, res) => {
   const data = req.body;
 
-  const template = `{% from "src/govuk/components/${req.params.component}/macro.njk" import govuk${data.macro_name} %}
-                      {{ govuk${data.macro_name}(params) }}`;
+  const template = `{% from "src/digitalmarketplace/components/${req.params.component}/macro.njk" import dm${data.macro_name} %}
+                      {{ dm${data.macro_name}(params) }}`;
 
   res.send(nunjucksEnv.renderString(template, { params: data.params }));
 });
@@ -33,7 +38,7 @@ app.post('/template', (req, res) => {
   const data = req.body;
 
   const template = `
-        {% extends "src/govuk/template.njk" %}
+        {% extends "src/digitalmarketplace/template.njk" %}
         {% block pageTitle %}{% if pageTitle %}{{ pageTitle }} {% else %} {{ super() }} {% endif %} {% endblock %}
         {% block headIcons %} {% if headIcons %} {{ headIcons }} {% else %} {{ super() }} {% endif %} {% endblock %}
         {% block head %} {% if head %} {{ head }} {% else %} {{ super() }} {% endif %} {% endblock %}

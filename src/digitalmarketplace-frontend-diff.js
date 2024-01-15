@@ -9,8 +9,8 @@ const got = require('got');
 const chalk = require('chalk');
 const { HtmlDiffer } = require('@markedjs/html-differ');
 const diffLogger = require('@markedjs/html-differ/lib/logger');
-const getGovukComponentList = require('./get-govuk-component-list');
-const fetchGovukFrontend = require('./fetch-govuk-frontend');
+const getDigitalmarketplaceComponentList = require('./get-digitalmarketplace-component-list');
+const fetchDigitalmarketplaceFrontend = require('./fetch-digitalmarketplace-frontend');
 const config = require('./config');
 
 const testProgress = new cliProgress.SingleBar(
@@ -46,7 +46,7 @@ async function diffSingleComponentExample(
 
   const expected = cleanHtml(
     nunjucksEnv.render(
-      path.join('src/govuk/components', component, 'template.njk'),
+      path.join('src/digitalmarketplace/components', component, 'template.njk'),
       {
         params: example.data,
       }
@@ -82,7 +82,7 @@ async function diffSingleComponent(
       path.join(
         config.tempDirectory,
         version,
-        'src/govuk/components',
+        'src/digitalmarketplace/components',
         component,
         `${component}.yaml`
       ),
@@ -224,18 +224,21 @@ async function diffComponentAgainstReferenceNunjucks(
 
   let version = requestedVersion;
 
-  // If no version supplied, work out what the latest tagged version of govuk-frontend is
+  // If no version supplied, work out what the latest tagged version of digitalmarketplace-govuk-frontend is
   if (!requestedVersion) {
     const latestRelease = await got
       .get(
-        'https://api.github.com/repos/alphagov/govuk-frontend/releases/latest'
+        'https://api.github.com/repos/Crown-Commercial-Service/ccs-digitalmarketplace-govuk-frontend/releases/latest'
       )
       .json();
     version = latestRelease.tag_name;
   }
 
-  await fetchGovukFrontend(version, options);
-  const components = getGovukComponentList(version, options).filter((item) => {
+  await fetchDigitalmarketplaceFrontend(version, options);
+  const components = getDigitalmarketplaceComponentList(
+    version,
+    options
+  ).filter((item) => {
     if (options.exclude && options.exclude.includes(item)) {
       return false;
     }

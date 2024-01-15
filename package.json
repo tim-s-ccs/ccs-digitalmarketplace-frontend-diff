@@ -1,7 +1,7 @@
 {
-  "name": "govuk-frontend-diff",
+  "name": "digitalmarketplace-frontend-diff",
   "version": "1.1.2",
-  "description": "Command line tool to compare a custom implementation of govuk-frontend templates with the reference Nunjucks",
+  "description": "Command line tool to compare a custom implementation of digitalmarketplace-frontend templates with the reference Nunjucks",
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest tests --notify --verbose --forceExit",
-    "testLocal": "export GOVUK_FRONTEND_DIFF_COMMAND=./index.js && npm test",
-    "updateSnapshots": "export GOVUK_FRONTEND_DIFF_COMMAND=./index.js && jest -u"
+    "testLocal": "export DIGITALMARKETPLACE_FRONTEND_DIFF_COMMAND=./index.js && npm test",
+    "updateSnapshots": "export DIGITALMARKETPLACE_FRONTEND_DIFF_COMMAND=./index.js && jest -u"
   },
   "pkg": {
     "assets": "src/base-template.njk"

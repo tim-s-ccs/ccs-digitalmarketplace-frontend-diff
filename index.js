@@ -2,7 +2,7 @@
 
 const yargs = require('yargs');
 const got = require('got');
-const diffComponentAgainstReferenceNunjucks = require('./src/govuk-frontend-diff');
+const diffComponentAgainstReferenceNunjucks = require('./src/digitalmarketplace-frontend-diff');
 
 process.on('unhandledRejection', (err) => {
   throw err;
@@ -42,19 +42,21 @@ async function performDiff(url, version, options) {
 
 const { argv } = yargs
   .scriptName('govuk-frontend-diff')
-  .usage('Usage: $0 http://localhost:3000 --govuk-frontend-version=v3.7.0')
   .usage(
-    'Usage: $0 http://localhost:3000 --govuk-frontend-version=v3.7.0 --exclude=page-template'
+    'Usage: $0 http://localhost:3000 --digitalmarketplace-frontend-version=v3.7.0'
   )
-  .option('govuk-frontend-version', {
-    describe: `Version of govuk-frontend to test against.    
+  .usage(
+    'Usage: $0 http://localhost:3000 --digitalmarketplace-frontend-version=v3.7.0 --exclude=page-template'
+  )
+  .option('digitalmarketplace-frontend-version', {
+    describe: `Version of digitalmarketplace-frontend to test against.    
     This will normally be references to tags like v3.7.0 but this will accept any commit-ish such as branches or even commit identifiers.
-    If not specified, the most recent govuk-frontend tag will be used.`,
+    If not specified, the most recent digitalmarketplace-frontend tag will be used.`,
   })
   .option('force-refresh', {
     type: 'boolean',
     describe:
-      'Force a re-download of govuk-frontend, bypassing the cache. Useful if the version you are specifying represents a branch.',
+      'Force a re-download of digitalmarketplace-frontend, bypassing the cache. Useful if the version you are specifying represents a branch.',
   })
   .option('include', {
     array: true,
@@ -85,7 +87,8 @@ const { argv } = yargs
   })
   .option('skip-hidden', {
     type: 'boolean',
-    describe: 'Skip examples from govuk-frontend that are marked as "hidden"',
+    describe:
+      'Skip examples from digitalmarketplace-frontend that are marked as "hidden"',
   })
   .command(
     '<url>',
@@ -98,12 +101,12 @@ const { argv } = yargs
     - Have /component/<component-name> and /template routes which accept data POSTed as JSON
     - Respond with rendered html
 
-    A reference server and more detailed instructions can be found in the readme at https://github.com/surevine/govuk-frontend-diff
+    A reference server and more detailed instructions can be found in the readme at https://github.com/tim-s-ccs/ccs-digitalmarketplace-frontend-diff
     `
   )
   .demandCommand(1);
 
-performDiff(argv._[0], argv['govuk-frontend-version'], {
+performDiff(argv._[0], argv['digitalmarketplace-frontend-version'], {
   forceRefresh: argv['force-refresh'],
   include: argv.include,
   exclude: argv.exclude,

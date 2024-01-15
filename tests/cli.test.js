@@ -1,7 +1,7 @@
 const { exec, fork } = require('child_process');
-const fetchGovukFrontend = require('../src/fetch-govuk-frontend');
+const fetchDigitalmarketplaceFrontend = require('../src/fetch-digitalmarketplace-frontend');
 
-const command = process.env.GOVUK_FRONTEND_DIFF_COMMAND;
+const command = process.env.DIGITALMARKETPLACE_FRONTEND_DIFF_COMMAND;
 
 jest.setTimeout(50000);
 
@@ -11,7 +11,7 @@ const runServer = function (script, version) {
   childProcessPort += 1; // Increment port. Even when we exit the child process cleanly the port is not freed up in a timely manner
 
   const server = fork(script, [
-    `--govuk-frontend-version=${version}`,
+    `--digitalmarketplace-frontend-version=${version}`,
     `--port=${childProcessPort}`,
   ]);
 
@@ -53,7 +53,7 @@ const run = async function (args) {
   }));
 };
 
-describe('govuk-frontend-diff cli', () => {
+describe('digitalmarketplace-frontend-diff cli', () => {
   it('outputs help message if no arguments supplied', async (done) => {
     const { exitCode, stdout, stderr } = await run();
     expect(stdout + stderr).toMatchSnapshot();
@@ -66,7 +66,7 @@ describe('govuk-frontend-diff cli', () => {
     const [server, port] = await runExampleServer('v3.7.0');
 
     const { exitCode, stdout, stderr } = await run(
-      `http://localhost:${port} --govuk-frontend-version=v3.7.0`
+      `http://localhost:${port} --digitalmarketplace-frontend-version=v3.7.0`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(0);
@@ -79,7 +79,7 @@ describe('govuk-frontend-diff cli', () => {
     const [server, port] = await runNonsenseServer();
 
     const { exitCode, stdout, stderr } = await run(
-      `http://localhost:${port} --hide-diffs --govuk-frontend-version=v3.7.0`
+      `http://localhost:${port} --hide-diffs --digitalmarketplace-frontend-version=v3.7.0`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(1);
@@ -88,13 +88,13 @@ describe('govuk-frontend-diff cli', () => {
     server.on('exit', done);
   });
 
-  it('some checks fail when comparing latest govuk-frontend with an older version', async (done) => {
-    await fetchGovukFrontend('v3.5.0', {});
+  it('some checks fail when comparing latest digitalmarketplace-frontend with an older version', async (done) => {
+    await fetchDigitalmarketplaceFrontend('v3.5.0', {});
 
     const [server, port] = await runExampleServer('v3.5.0');
 
     const { exitCode, stdout, stderr } = await run(
-      `http://localhost:${port} --govuk-frontend-version=v3.7.0`
+      `http://localhost:${port} --digitalmarketplace-frontend-version=v3.7.0`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(1);
@@ -102,20 +102,12 @@ describe('govuk-frontend-diff cli', () => {
     server.kill();
     server.on('exit', done);
   });
-
-  // it('can download other versions of govuk-frontend', async (done) => {
-  //   done();
-  // });
-
-  // it('forces a redownload of govuk-frontend when requested', async (done) => {
-  //   done();
-  // });
 
   it('can run a subset of the checks by excluding some', async (done) => {
     const [server, port] = await runExampleServer('v3.7.0');
 
     const { exitCode, stdout, stderr } = await run(
-      `http://localhost:${port} --govuk-frontend-version=v3.7.0 --exclude button accordion page-template`
+      `http://localhost:${port} --digitalmarketplace-frontend-version=v3.7.0 --exclude button accordion page-template`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(0);
@@ -128,7 +120,7 @@ describe('govuk-frontend-diff cli', () => {
     const [server, port] = await runExampleServer('v3.7.0');
 
     const { exitCode, stdout, stderr } = await run(
-      `http://localhost:${port} --govuk-frontend-version=v3.7.0 --include button page-template`
+      `http://localhost:${port} --digitalmarketplace-frontend-version=v3.7.0 --include button page-template`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(0);
@@ -141,7 +133,7 @@ describe('govuk-frontend-diff cli', () => {
     const [server] = await runExampleServer('v3.7.0');
 
     const { exitCode, stdout, stderr } = await run(
-      `http:// --govuk-frontend-version=v3.7.0`
+      `http:// --digitalmarketplace-frontend-version=v3.7.0`
     );
     expect(stdout + stderr).toEqual(
       expect.stringContaining('RequestError: getaddrinfo')
@@ -153,12 +145,12 @@ describe('govuk-frontend-diff cli', () => {
   });
 
   it('displays html diffs', async (done) => {
-    await fetchGovukFrontend('v3.0.0', {});
+    await fetchDigitalmarketplaceFrontend('v3.0.0', {});
 
     const [server, port] = await runExampleServer('v3.0.0');
 
     const { exitCode, stdout, stderr } = await run(
-      `http://localhost:${port} --govuk-frontend-version=v3.7.0 --include button`
+      `http://localhost:${port} --digitalmarketplace-frontend-version=v3.7.0 --include button`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(1);
@@ -168,12 +160,12 @@ describe('govuk-frontend-diff cli', () => {
   });
 
   it('hides html diffs when requested', async (done) => {
-    await fetchGovukFrontend('v3.0.0', {});
+    await fetchDigitalmarketplaceFrontend('v3.0.0', {});
 
     const [server, port] = await runExampleServer('v3.0.0');
 
     const { exitCode, stdout, stderr } = await run(
-      `http://localhost:${port} --govuk-frontend-version=v3.7.0 --include button --hide-diffs`
+      `http://localhost:${port} --digitalmarketplace-frontend-version=v3.7.0 --include button --hide-diffs`
     );
     expect(stdout + stderr).toMatchSnapshot();
     expect(exitCode).toEqual(1);
